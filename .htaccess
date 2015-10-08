@@ -1,0 +1,7 @@
+# disable directory browsing
+Options -Indexes
+
+RewriteEngine on
+RewriteCond $1 !^(index\.php|images|css|js)
+RewriteRule ^(.*)$ index.php/$1 [L]
+RedirectMatch 302 (.*)\index.php?$ /en/home
