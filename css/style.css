@@ -1,0 +1,624 @@
+/*
+Theme Name: grab talent
+Author: Pat - iconcept
+*/
+
+@import url(https://fonts.googleapis.com/css?family=Gentium+Book+Basic);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lora:400,400italic);
+@import url(https://fonts.googleapis.com/css?family=Libre+Baskerville);
+
+/*--------------------------------------------------------------
+# Normalize
+--------------------------------------------------------------*/
+html {
+	font-family: sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust:     100%;
+}
+
+body {
+	margin: 0;
+	line-height: 1.2;
+}
+
+article {
+	display: block;
+}
+
+a {
+	background-color: transparent;
+	text-decoration: none;
+	color: #fec033;
+	-webkit-transition: all 0.3s linear;
+	-moz-transition: all 0.3s linear;
+	-ms-transition: all 0.3s linear;
+	-o-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+}
+
+a:active,
+a:hover {
+	outline: 0;
+	text-decoration: none;
+	color: #000;
+}
+
+b,
+strong {
+	font-weight: bold;
+}
+
+img {
+	border: 0;
+}
+
+hr {
+	box-sizing: content-box;
+	height: 0;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	color: inherit;
+	font: inherit;
+	margin: 0;
+}
+
+button {
+	overflow: visible;
+}
+
+button,
+select {
+	text-transform: none;
+}
+
+select {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eaeaea+0,ffffff+100 */
+	background: rgb(234,234,234); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(234,234,234,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(234,234,234,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(234,234,234,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(234,234,234,1) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(234,234,234,1) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(234,234,234,1) 0%,rgba(255,255,255,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+	border-radius: 3px;
+	border: solid 1px #cccccc;
+	margin-right: 4px;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	-webkit-appearance: button;
+	cursor: pointer;
+	border: 0;
+	border-radius: 4px;
+	background: #737373;
+	color: #fff;
+	padding: 14px 16px;
+}
+
+button[disabled],
+html input[disabled] {
+	cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+input {
+	line-height: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	box-sizing: border-box;
+	padding: 0;
+}
+
+textarea {
+	overflow: auto;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: solid 1px #ebeced;
+}
+td,
+th {
+	padding: 6px;
+	border-color: #ebeced;
+}
+th {background: #F9F9F9;}
+
+/*--------------------------------------------------------------
+# Typography
+--------------------------------------------------------------*/
+body,
+button,
+input,
+select,
+textarea {
+	color: #000000;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.3;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	clear: both;
+	font-weight: normal;
+	line-height: 1.2;
+	font-family: Arial, sans-serif;
+	margin: 0 0 12px;
+}
+h1 {font-size: 48px;}
+h2 {font-size: 36px;}
+h3 {font-size: 24px;}
+h4 {font-size: 20px;}
+h5 {font-size: 16px;}
+
+p {
+	margin: 0 0 15px;
+}
+
+label {font-weight: normal; margin: 0 0 8px;}
+input[type="number"],
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select,
+textarea {
+	border: solid 1px #b6b6b6;
+	padding: 12px 8px;	
+	border-radius: 4px;
+	width: 100%;
+}
+
+/*--------------------------------------------------------------
+# Elements
+--------------------------------------------------------------*/
+html {
+	box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after { /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+	box-sizing: inherit;
+}
+
+body,html { height: 100% }
+body {
+	background: #fff; /* Fallback for when there is no custom background color defined. */
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: "";
+}
+
+blockquote,
+q {
+	quotes: "" "";
+}
+
+hr {
+	background-color: #ccc;
+	border: 0;
+	height: 1px;
+	margin: 40px 0;
+}
+
+ul,
+ol {
+	margin: 0 0 1em; padding: 0;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+li > ul,
+li > ol {
+	margin-bottom: 0;
+	margin-left: 1.5em;
+}
+
+.page-content ul, .page-content ol {
+	margin-left: 30px;
+}
+.page-content ul {
+	list-style: dotted;
+}
+.page-content ol {
+	list-style: decimal;
+}
+.page-content li {margin-bottom: 6px;}
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin: 0 1.5em 1.5em;
+}
+
+img {
+	height: auto; /* Make sure images are scaled correctly. */
+	max-width: 100%; /* Adhere to container width. */
+}
+
+table {
+	margin: 0 0 1.5em;
+	width: 100%;
+}
+
+
+/*--------------------------------------------------------------
+# GENERALS
+--------------------------------------------------------------*/
+
+body {}
+
+.font-1 {
+	font-family: 'Gentium Book Basic', serif;
+	font-weight: normal;
+}
+.font-2 {
+	font-family: 'Lora', serif;
+	font-weight: normal;
+}
+
+.color-1 {color: #fec033;}
+
+.button {
+	font-family: 'Libre Baskerville', serif;
+	border: solid 1px #f6ba33;
+	padding: 15px 30px;
+	display: inline-block;
+	margin-right: 12px;
+	margin-bottom: 12px;
+	color: #ffffff;
+	text-transform: uppercase;
+}
+.button:hover {
+	color: #222222;
+	background: #f6ba33;
+}
+
+.alignleft {float: left;}
+.alignright {float: right;}
+
+.textcenter {text-align: center;}
+.textright {text-align: right;}
+
+.no-clear {clear: none;}
+
+.no-padding {padding: 0;}
+.page-header {  border-bottom: none !important; }
+
+/*--------------------------------------------------------------
+# HEADER
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+# HEADER (MENU)
+--------------------------------------------------------------*/
+
+ul.nav-menu {list-style: none; margin: 0; padding: 0;}
+ul.nav-menu > li {border: solid 1px #ebeced; display: block; float: left; position: relative;}
+ul.nav-menu > li:not(:last-child) {border-right: 0;}
+ul.nav-menu > li > a {display: block; padding: 36px 0; font-size: 14px; color: #3e454c; font-weight: 700; text-align: center;}
+ul.nav-menu > li.home-menu a {padding: 22px 0; font-size: 36px;} 
+
+ul.nav-menu li.current-menu-item > a {background: #3699d5; color: #fff;}
+
+ul.nav-menu li.has-submenu:before {
+	content: "\f078"; 
+	font-family: FontAwesome; 
+	font-style: normal; 
+	font-weight: normal; 
+	color: #73b8e6; 
+	font-size: 10px; 
+	position: absolute; 
+	bottom: 4px; 
+	left: 49%;
+}
+
+ul.nav-menu ul {
+    margin: -20px 0 0 0;
+    _margin: 0; /*IE6 only*/
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 94px;
+    left: 0;
+	right: 0;
+    z-index: 1;    
+    background: #fff;   
+    background: linear-gradient(#fff, #fefefe);
+    box-shadow: 0 -1px 0 rgba(255,255,255,.3);  
+	border: solid 1px #ebeced;
+	border-top: 0;
+    transition: all .2s ease-in-out;
+	padding: 0;
+}
+
+ul.nav-menu li:hover > ul {
+    opacity: 1;
+    visibility: visible;
+    margin: 0;
+}
+
+ul.nav-menu ul ul {
+    top: 0;
+    left: 100%;
+    margin: 0 0 0 20px;
+    _margin: 0; /*IE6 only*/
+    box-shadow: -1px 0 0 rgba(255,255,255,.3);      
+}
+
+ul.nav-menu ul li {
+    float: none;
+	position: relative;
+    display: block;
+    border: 0;
+    _line-height: 0; /*IE6 only*/
+    border-bottom: solid 1px #ebeced;
+}
+
+ul.nav-menu ul li:last-child {   
+    border-bottom: none;    
+}
+
+ul.nav-menu ul a {    
+	color: #3e454c;
+    padding: 10px;
+    _height: 10px; /*IE6 only*/
+    display: block;
+    white-space: nowrap;
+    float: none;
+    text-transform: none;
+}
+
+ul.nav-menu ul a:hover {
+    background-color: #6997d1;
+    background-image: linear-gradient(#3699d5, #6997d1);
+	color: #fff;
+}
+
+/*--------------------------------------------------------------
+# FOOTER
+--------------------------------------------------------------*/
+
+.site-footer {
+	background: #212121;
+	padding: 40px 0;
+	color: #fff;
+	font-family: 'Lora', sans-serif;
+	font-size: 15px;
+}
+.site-footer p {margin: 0;}
+.site-footer a {color: #ffffff;}
+.site-footer .footer-social {text-align: right;}
+.site-footer .footer-social a:nth-child(1) {color: #3c5a99;}
+.site-footer .footer-social a:nth-child(2) {color: #28a9e0;}
+.site-footer .footer-social a:nth-child(3) {color: #1686b0;}
+
+/*--------------------------------------------------------------
+# INDEX - LANDING
+--------------------------------------------------------------*/
+
+.page-home #page {background: url('/images/home-bg.jpg') center no-repeat; background-size: cover;}
+
+.home-header {padding: 40px 0;}
+
+.home-menu {margin-top: 15px;}
+.home-menu li {display: inline-block; padding-left: 20px;}
+.home-menu li a {padding: 12px 28px; font-family: 'Lato', sans-serif; font-size: 15px; color: #fff;
+	display: block;
+}
+
+.home-caption h2 {font-size: 72px; margin: 0 0 12px;}
+.home-caption p {font-size: 50px; line-height: 1.1; color: #fff;}
+.home-caption p.small-description {font-size: 18px;}
+
+/*--------------------------------------------------------------
+# INDEX - RECRUITER PORTAL
+--------------------------------------------------------------*/
+
+.home-menu.recruiter-ver li a {
+	padding: 12px 24px;
+	border: solid 1px #fec033;
+}
+
+.recruiter-caption h2 { font-size: 30px; text-align: center; color: #fff; padding-bottom: 24px;
+	background: url('/images/recruiter-border.png') bottom center no-repeat;
+	margin-bottom: 36px;
+}
+.recruiter-caption input {
+	border: solid 1px #daa93a; background: transparent; display: inline; width: auto;
+	border-radius: 0;
+	margin-bottom: 10px;
+	width: 100%;
+	padding: 10px 20px;
+	color: #fff;
+}
+.recruiter-caption input[type="submit"]{
+	background: #fec033;
+	color: #000;
+}
+
+/*--------------------------------------------------------------
+# SUB PAGES 
+--------------------------------------------------------------*/
+
+.subpage #page {background: url('/images/subpage-bg.jpg') top center no-repeat #eaeaea; background-size: 100% auto;}
+
+.site-header {background: #f2f2f2; }
+
+.site-menu {margin-top: 24px;}
+.site-menu li {display: inline-block; padding-left: 24px; }
+.site-menu li a {display: block; color: #000000; font-family: 'Lato', sans-serif; font-size: 15px;
+	padding: 10px;
+	border-bottom: solid 1px; border-color: transparent;
+	line-height: 1;
+}
+.site-menu li.current-menu-item a {border-color: #000000;}
+
+.page-header {padding-top: 15px; }
+.page-header .page-title {font-size: 30px; color: #fff; margin: 16px 0;}
+
+.page-header .page-submenu {text-align: right;}
+.page-header .page-submenu .button {padding: 18px 12px; background: #fec033; color: #000000;
+	font-size: 14px; font-weight: 700;
+	font-family: 'Lato', sans-serif;
+	margin-right: 0; margin-left: 20px;
+}
+.page-header .page-submenu .button:hover {background: #000000; color: #fff;}
+
+.page-content {background: #fff; padding: 30px 30px 30px;
+	border: solid 1px #d2d2d2;
+	-webkit-box-shadow: 0px 0px 6px 0px rgba(150, 150, 150, 0.65);
+	-moz-box-shadow:    0px 0px 6px 0px rgba(150, 150, 150, 0.65);
+	box-shadow:         0px 0px 6px 0px rgba(150, 150, 150, 0.65);
+}
+
+
+/*--------------------------------------------------------------
+# SUB PAGES - MY ACCOUNT
+--------------------------------------------------------------*/
+
+.profile-row {padding-bottom: 60px; border-bottom: solid 1px #ededed; margin-bottom: 20px;}
+.profile-row .profile-image {margin-right: 20px;}
+
+.info-row .info-col > div {margin: 0 0 10px;}
+
+/*--------------------------------------------------------------
+# SUB PAGES - CANDIDATE REGISTER FORM
+--------------------------------------------------------------*/
+
+.candidate-register-form .row {margin-bottom: 12px;}
+.candidate-register-form label {margin: 12px 0; font-weight: bold;}
+.candidate-register-form td,
+.candidate-register-form th {border: solid 1px #dddddd;}
+.candidate-register-form .table-center td,
+.candidate-register-form .table-center th {text-align: center; }
+
+.candidate-register-form .skill-table th {background: #ffd300;}
+
+/*--------------------------------------------------------------
+# SUB PAGES - COMPANY LOGIN AREA
+--------------------------------------------------------------*/
+
+table.upcoming-interview th,
+table.job-posting-listing th {padding: 18px; }
+table.job-posting-listing th { background: #fec033; }
+table.job-posting-listing tr {border-bottom: solid 1px #dddddd;}
+table.job-posting-listing th:not(:first-child),
+table.job-posting-listing td:not(:first-child) {text-align: center;}
+table.job-posting-listing td:first-child a {color:#dda423;}
+table.job-posting-listing td:last-child a {color:#ff0000;}
+
+/*--------------------------------------------------------------
+# SUB PAGES - CREATE CANDIDATE PROFILE TEST
+--------------------------------------------------------------*/
+
+.subpage-breadcrumbs {text-align: right; color: #fff; margin-top: 24px;}
+.subpage-breadcrumbs a {color: #fff;}
+
+.candidate-profile {padding: 30px 35px; border: solid 1px #dddddd; margin-bottom: 24px;}
+.candidate-profile table {border: 0;}
+.candidate-profile table tr {border-bottom: solid 1px #dddddd;}
+.candidate-profile table tr td {padding: 15px 0; vertical-align: top;}
+
+.candidate-attribute h4 {font-size: 18px; font-weight: bold; font-family: Arial, sans-serif; margin: 0; line-height: 26px;}
+.candidate-attribute h4 a {font-size: 10px; color: #000; font-weight: normal;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.candidate-attribute th,
+.candidate-attribute td {padding: 10px; border: solid 1px #ddd; vertical-align: top;}
+.candidate-attribute th {background: #fec033; font-weight: bold; }
+.candidate-attribute table td .remove-row {font-size: 18px; color: #000;}
+
+.candidate-attribute table td .button {border: 0; padding: 2px 24px; margin: 0 4px 0; font-family: Arial, sans-serif; font-weight: bold;}
+.candidate-attribute table td .with-icons.button {font-size: 20px; color: #fff; font-weight: normal;}
+.candidate-attribute table td .green-btn.button {background: #39b44b;color: #fff; }
+.candidate-attribute table td .red-btn.button {background: #ec1b22;color: #fff; }
+
+/*--------------------------------------------------------------
+# SUB PAGES - JOB CANDIDATE MEMBER AREA
+--------------------------------------------------------------*/
+
+.candidate-attribute table td a.apply-upload-resume {color: #ff0000;}
+
+/*--------------------------------------------------------------
+# SUB PAGES - JOB MENU CREATE JOB
+--------------------------------------------------------------*/
+
+.new-job-form > .row {margin-bottom: 12px;}
+.new-job-form span.desc {font-size: 12px; color: #3f3f3f;}
+
+
+/*--------------------------------------------------------------
+# Existing CSS - Recruiter WYSIWYG Editor
+--------------------------------------------------------------*/
+
+.modal-title { clear: none !important; }
+
+#editor {
+	max-height: 100%;
+	height: 300px;
+	background-color: white;
+	border-collapse: separate; 
+	border: 1px solid rgb(204, 204, 204); 
+	padding: 4px; 
+	box-sizing: content-box; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
+	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+	overflow: scroll;
+	outline: none;
+}
+
+div[data-role="editor-toolbar"] { 
+    -webkit-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
+    border-radius:5px; 
+    border:1px solid #195f91;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; 
+}
+
+.arrow_td { position:relative; display: inline-block; min-width:250px; height:40px; background-color: #ccc; color: white; line-height:40px; text-align:center; vertical-align: middle; margin-right:50px; }
+.arrow_td:after { content:''; position:absolute; top:0px; right:-20px; display: block; width: 0; height:0; border-left: 20px solid #ccc; border-bottom: 20px solid transparent; border-top: 20px solid transparent; }
+
+.current { position:relative; display: inline-block; width:200px; height:40px; background-color: #337ab7; color: white; line-height:40px; text-align:center; vertical-align: middle; margin-right:50px; }
+.current:after { content:''; position:absolute; top:0px; right:-20px; display: block; width: 0; height:0; border-left: 20px solid #337ab7; border-bottom: 20px solid transparent; border-top: 20px solid transparent; }

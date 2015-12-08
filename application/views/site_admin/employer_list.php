@@ -40,23 +40,31 @@
             <?php } ?>
             <!-- To display in Large Desktop mode - Start -->
             <div class="visible-md-block visible-lg-block col-lg-12 col-md-12">
-                <h2 class="sub-header"><img src="/images/icons/employers.png" alt="Employers / Client List" height="50px"/> Employers / Client List</h2>
+                <h2 class="sub-header"><img src="/images/icons/employers.png" alt="Employers / Client List" height="50px"/><?=lang('siteadminusers.employerListheading');?></h2>
                 <div class="panel panel-default">
                     <table class="table table-bordered table-hover">
                         <thead class="tablehead_bgColor">
                             <tr>
-                                <th>Logo</th>
-                                <th>Employer Name</th>
-                                <th>Employer Web-site</th>
-                                <th>Employer Phone</th>
-                                <th>Employer Fax</th>
-                                <th>Employer Country</th>
+                                <th><?=lang('siteadminusers.employertblhdng1');?></th>
+                                <th><?=lang('siteadminusers.employertblhdng2');?></th>
+                                <th><?=lang('siteadminusers.employertblhdng3');?></th>
+                                <th><?=lang('siteadminusers.employertblhdng4');?></th>
+                                <th><?=lang('siteadminusers.employertblhdng5');?></th>
+                                <th><?=lang('siteadminusers.employertblhdng6');?></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach($employers as $employ) { ?>
                                 <tr>
-                                    <td style="vertical-align: middle; text-align:center;"><img src="/images/icons/employers.png" height="50px" /></td>
+                                    <td style="vertical-align: middle; text-align:center; width:20px;">
+                                    <!-- Profile Picture Row - Start -->
+                                    <?php if( empty($employ['employer_logo_url']) ) { ?>
+                                        <img alt="Avatar" src="/images/icons/employers.png" height="50px" />
+                                    <?php } else { ?>
+                                        <img alt="Avatar" src="<?php echo '/images/recruiter/logo/'.$employ['employer_logo_url'];?>" height="50px" />
+                                    <?php } ?>
+                                    <!-- Profile Picture Row - End -->
+                                    </td>
                                     <td style="vertical-align: middle;">
                                         <a href="<?php echo https_url($this->lang->lang().'/site_admin/employers/'.$employ['employer_code']); ?>">
                                         <?php
@@ -97,7 +105,7 @@
                 <div class="col-md-12 col-md-offset-0">
                     <?php } else { ?>
                         <div class="col-xs-12">
-                            <h3>This employer does not exist (or) you typed the wrong URL.</h3>
+                            <h3><?=lang('siteadminusers.employerListerrorlbl');?></h3>
                         </div>
                     <?php } ?>                
                 </div>

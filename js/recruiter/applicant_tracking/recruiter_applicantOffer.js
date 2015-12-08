@@ -1,4 +1,4 @@
-var jobRefId, jobName, candRefId, candName, Recruiter, RecruiterEmail, Emailsubject, EmailBody, chgCandStage_url;
+var jobRefId, jobName, candRefId, candName, Recruiter, RecruiterEmail, Emailsubject, OfferEmailBody, chgCandStage_url;
 
 $(function(){
     var j = jQuery.noConflict();
@@ -12,14 +12,13 @@ $(function(){
     candPriInterviewer = j("#intvwPriminterviewer").val();
     Recruiter = j("#intvwRecruiterName").val();
     RecruiterEmail = j("#intvwRecruiterEmail").val();
-    Emailsubject = j("#candidEMailSubject").val(); 
-    EmailBody = j("#editor").html();
+    Emailsubject = j("#candidEMailSubject").val();
     chgCandStage_url = j("#applnOfferAction").val();
     
     j("#editor").html( j('#inputoffertmpl').html().replace('{candidate_name}', candName).replace('{job_title}', jobName).replace('{employer_name}', Recruiter).replace('{employer_email}', RecruiterEmail).replace('{employer_name}', Recruiter) );
-    
-    j("button#OffrstgeEmail_updBtn").click(function(event) {
+    OfferEmailBody = j("#editor").html();
         
+    j("button#OffrstgeEmail_updBtn").click(function(event) {
         var btnVal = j(this).html();
         j(this).html("<img src='/images/loading.gif' width='20px' height='20px'/>").attr("disabled","disabled");
         
@@ -27,7 +26,7 @@ $(function(){
         j.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url         : chgCandStage_url, // the url where we want to POST
-            data        : { 'candidateRefId' : candRefId, 'candidateJobRefId' : jobRefId, 'cand_email_subject' : Emailsubject, 'cand_email_Body' : EmailBody, 'rec_emailaddress' : RecruiterEmail }, 
+            data        : { 'candidateRefId' : candRefId, 'candidateJobRefId' : jobRefId, 'cand_email_subject' : Emailsubject, 'cand_offeremail_Body' : OfferEmailBody, 'rec_emailaddress' : RecruiterEmail }, 
             crossDomain : true 
         })
         .done(function(data) {

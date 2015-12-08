@@ -7,6 +7,7 @@ class Grabtalent_signup_model extends CI_Model {
     var $row = array(
         'candidate_ref_id' => null,
         'candidate_coderefs_id' => null,
+        'candidate_profilepicurl' => null,
         'candidate_firstname' => null,
         'candidate_lastname' => null,
         'candidate_email' => null,
@@ -37,13 +38,11 @@ class Grabtalent_signup_model extends CI_Model {
         return ($this->db->affected_rows() != 1) ? false : true;
     }
 
-
     /*
       Static methods.
     ---------------------------------------------------------------------------*/
 
-    static function generate_unique_code()
-    {
+    static function generate_unique_code() {
         return hash_hmac('sha256', uniqid(mt_rand(), true), false);
     }
 }

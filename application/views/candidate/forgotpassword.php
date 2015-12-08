@@ -14,12 +14,12 @@
                         <form method="post" accept-charset="utf-8" role="form" enctype="multipart-form/data">                        
                             <div class="row">
                                 <div class="col-md-12">
-                                    <input type="email" class="form-control" name="inputemailaddress" id="inputemailaddress" placeholder="<?=lang('candidatehome.labelemail');?>" required />
+                                    <input type="email" name="inputemailaddress" id="inputemailaddress" placeholder="<?=lang('candidatehome.labelemail');?>" required />
                                 </div>
                             </div><br />
                             <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-lg btn-primary btn-block" type="submit" id="button-submit-password"><?=lang('candidatehome.forgotpasswordbtnlbl');?></button>
+                                <div class="col-md-12 text-center">
+                                    <button class="button" type="submit" id="button-submit-password"><?=lang('candidatehome.forgotpasswordbtnlbl');?></button>
                                 </div>
                             </div>
                         </form>

@@ -46,18 +46,18 @@
                 <?php } ?>
             <!-- To display in Large Desktop mode - Start -->
             <div class="visible-md-block visible-lg-block col-lg-12 col-md-12">
-                <h2 class="sub-header"><img src="/images/icons/candidates.png" alt="Settings icon" height="50px"/> Candidate List</h2>
+                <h2 class="sub-header"><img src="/images/icons/candidates.png" alt="Settings icon" height="50px"/><?=lang('siteadminusers.candidateListheading');?></h2>
                 <div class="panel panel-default">
                     <table class="table table-bordered table-hover">
                         <thead class="tablehead_bgColor">
                             <tr>
-                                <th>Logo</th>
-                                <th>Candidate Name</th>
-                                <th>Candidate Gender</th>
-                                <th>Candidate Web-site</th>
-                                <th>Candidate Phone</th>
-                                <th>Candidate Nationality</th>
-                                <th>Member Since.</th>
+                                <th><?=lang('siteadminusers.candidateListtblehdng1');?></th>
+                                <th><?=lang('siteadminusers.candidateListtblehdng2');?></th>
+                                <th><?=lang('siteadminusers.candidateListtblehdng3');?></th>
+                                <th><?=lang('siteadminusers.candidateListtblehdng4');?></th>
+                                <th><?=lang('siteadminusers.candidateListtblehdng5');?></th>
+                                <th><?=lang('siteadminusers.candidateListtblehdng6');?></th>
+                                <th><?=lang('siteadminusers.candidateListtblehdng7');?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,7 +117,7 @@
                 <div class="col-md-12 col-md-offset-0">
                     <?php } else { ?>
                         <div class="col-xs-12">
-                            <h3>This employer does not exist (or) you typed the wrong URL.</h3>
+                            <h3><?=lang('siteadminusers.candidateListerrorlbl');?></h3>
                         </div>
                     <?php } ?>                
                 </div>

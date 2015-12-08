@@ -39,7 +39,7 @@
 */
 
 $route['default_controller'] = "home";
-$route['404_override'] = 'error/pagenotfound';
+$route['404_override'] = 'error/error_404';
 $route['^ch/(.+)$'] = "$1";
 $route['^en/(.+)$'] = "$1";
 $route['^fr/(.+)$'] = "$1";

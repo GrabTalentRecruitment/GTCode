@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost';
-$config['ssl_url']	= 'https://localhost:443';
+$config['base_url']	= 'http://grab-talent.net';
+$config['base_ssl_url']	= 'https://grab-talent.net:443';
 
 /*
 |--------------------------------------------------------------------------
@@ -156,10 +156,10 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 |
 */
 $config['allow_get_array']		= TRUE;
-$config['enable_query_strings'] = TRUE;
-$config['controller_trigger']	= 'c';
+$config['enable_query_strings']		= TRUE;
+$config['controller_trigger']		= 'c';
 $config['function_trigger']		= 'm';
-$config['directory_trigger']	= 'd'; // experimental not currently in use
+$config['directory_trigger']		= 'd'; // experimental not currently in use
 
 /*
 |--------------------------------------------------------------------------
@@ -225,7 +225,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'M3pMjyz6mP2szsnDBJNe7ys2fOGtKDpOesyqDs70pockP5T8VnPU4l4qvbg00WY5';
+$config['encryption_key'] = 'SeMCEUa62mYhPfQMlIyM5PQhT2w63sRK';
 
 /*
 |--------------------------------------------------------------------------
@@ -248,7 +248,7 @@ $config['encryption_key'] = 'M3pMjyz6mP2szsnDBJNe7ys2fOGtKDpOesyqDs70pockP5T8VnP
 $config['sess_cookie_name']		= 'ci_session';
 $config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
-$config['sess_encrypt_cookie']	= TRUE;
+$config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
@@ -280,7 +280,7 @@ $config['cookie_secure']	= FALSE;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

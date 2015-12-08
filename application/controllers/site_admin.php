@@ -6,7 +6,9 @@ class Site_admin extends CI_Controller {
         parent::__construct();
 
         // Load session library
+        $this->load->model('login_database');
         $this->load->library('session');
+        $this->load->library('email');
         
         // Load form helper library
         $this->load->helper(array('form', 'url'));
@@ -14,11 +16,11 @@ class Site_admin extends CI_Controller {
         $this->load->helper('language');
         $this->load->helper('url');
         $this->load->helper('view_helper');
+        $this->load->helper('directory');
+        $this->load->helper('file');
+        $this->load->helper('download');
         
         $this->lang->load('common');
-        
-        // Load database
-        $this->load->model('login_database');
         
         $curr_lang = $this->lang->lang();
         
@@ -36,7 +38,7 @@ class Site_admin extends CI_Controller {
         $this->session->unset_userdata($session_items);
         
         $head_params = array(
-            'title' => 'Grab Talent Admin Portal',
+            'title' => 'Admin Portal | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -70,7 +72,7 @@ class Site_admin extends CI_Controller {
     public function dashboard() {
         
         $head_params = array(
-            'title' => 'GT Admin Dashboard',
+            'title' => 'Admin Dashboard | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -85,7 +87,7 @@ class Site_admin extends CI_Controller {
     public function employer_list() {
         
         $head_params = array(
-            'title' => 'GT | Client Listing Page',
+            'title' => 'Client Listing Page | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -99,7 +101,7 @@ class Site_admin extends CI_Controller {
     // Individual Client page view.
     public function employers() {
         $head_params = array(
-            'title' => 'GT | Client Page',
+            'title' => 'Client Page | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -114,7 +116,7 @@ class Site_admin extends CI_Controller {
     public function candidate_list() {
         
         $head_params = array(
-            'title' => 'GT | Candidate Listing Page',
+            'title' => 'Candidate Listing Page | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -128,7 +130,7 @@ class Site_admin extends CI_Controller {
     // Individual Candidate page view.
     public function candidates() {
         $head_params = array(
-            'title' => 'GT | Candidate Page',
+            'title' => 'Candidate Page | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -143,7 +145,7 @@ class Site_admin extends CI_Controller {
     public function jobs_list() {
         
         $head_params = array(
-            'title' => 'GT | Job Listing Page',
+            'title' => 'Job Listing Page | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -161,7 +163,7 @@ class Site_admin extends CI_Controller {
         $this->session->set_userdata('job_detail', $job_detail);
 
         $head_params = array(
-            'title' => 'GT | Job Page',
+            'title' => 'Job Page | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -176,7 +178,7 @@ class Site_admin extends CI_Controller {
 	public function users() {
         
         $head_params = array(
-            'title' => 'GT Admin Create User',
+            'title' => 'Create Recruiter | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -191,7 +193,7 @@ class Site_admin extends CI_Controller {
 	public function menu_settings() {
         
         $head_params = array(
-            'title' => 'GT Menu Settings',
+            'title' => 'Menu Settings | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -231,44 +233,170 @@ class Site_admin extends CI_Controller {
         }
     }
     
-    public function clientuser_create(){
+	public function dropdown_settings() {
         
-        //To retrieve email from session.
-        $email = $this->session->userdata('logged_in');
-                
-        // Check validation for user input in SignUp form
-        $this->load->model('grabtalent_employers_model');
-        $code = Grabtalent_employers_model::generate_unique_code();
-                        
-        $ClientModels = $this->_saveClients(
-            $this->input->post('inputRecruiterName'),
-            $this->input->post('inputRecruiterWebAddress'),
-            $this->input->post('inputRecruiterPhone'),
-            $this->input->post('inputRecruiterFax'),
-            $this->input->post('inputRecruiterAddress'),
-            $this->input->post('inputRecruiterCountry'),
-            $this->input->post('inputRecruiterDescription'),
-            $this->input->post('inputRecruiterContactFName'),
-            $this->input->post('inputRecruiterContactLName'),
-            $this->input->post('inputRecruiterContactEmail'),
-            $this->input->post('inputRecruiterStatus'),
-            $email
+        $head_params = array(
+            'title' => 'Drop-Down Settings | Grab Talent',
+            'description' => "Grab Talent is the best online recruitment portal",
+            'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
         
-        if($this->db->trans_status() == '1') {
-            echo "success:".$ClientModels.";Client was created successfully, redirecting to client page!";
-            
-            $empData = array(  
-                        'employer_code' => $code, 
-                        'employer_email' => $this->input->post('inputRecruiterContactEmail'), 
-                        'employer_password' => md5('grab123')                            
-                    );
-            $this->db->insert('employer_login', $empData);
+        $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
+        $template["header"] = $this->load->view('common/site_admin/header', null, true);
+        $template["contents"] = $this->load->view('site_admin/dropdown_settings', null, true);
+        $this->load->view('common/site_admin/layout', $template);
+	}
+    
+    public function dropdown_itemchange() {
+        
+        $head_params = array(
+            'title' => 'Edit Drop-Down Items | Grab Talent',
+            'description' => "Grab Talent is the best online recruitment portal",
+            'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
+        );
+        
+        $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
+        $template["header"] = $this->load->view('common/site_admin/header', null, true);
+        $template["contents"] = $this->load->view('site_admin/dropdown_itemchange', null, true);
+        $this->load->view('common/site_admin/layout', $template);
+	}
+    
+    public function dropdown_itemadd() {
+        
+        $head_params = array(
+            'title' => 'Add Drop-Down Items | Grab Talent',
+            'description' => "Grab Talent is the best online recruitment portal",
+            'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
+        );
+        
+        $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
+        $template["header"] = $this->load->view('common/site_admin/header', null, true);
+        $template["contents"] = $this->load->view('site_admin/dropdown_itemadd', null, true);
+        $this->load->view('common/site_admin/layout', $template);
+	}
+    
+    public function dropdown_addtblItem() {
+        
+        $postString = explode( ",", str_replace("'","",$this->input->post('JSonString')) );
+        $tmptableName = end( explode( ",", str_replace("'","",$this->input->post('JSonString')) ) );
+        $tableName = explode( ":", $tmptableName );
+        $data = array();
+        foreach( $postString as $value){
+            $tmp = explode(":", $value);
+            $data[ $tmp[0] ] = $tmp[1];
+        }
+        // As the last value in the array is table-name, we remove using the below array method.
+        array_pop($data);
+        $this->db->insert($tableName[1], $data); 
+        if($this->db->affected_rows() > 0) {
+            echo "success;Drop Down Item was added successfully.:".https_url($this->lang->lang().'/site_admin/dropdown_itemchange/'.$tableName[1]);
         } else {
-            echo "failure;Client was not saved, please try again!";
+            echo "failure;Something went wrong, please try again.";
+        }
+    }
+    
+    public function dropdown_deltblItem() {
+        $query = $this->db->query("DELETE FROM ".$this->input->post('tableName')." WHERE ".$this->input->post('columnName')." = '" . $this->input->post('columnVal') . "'");
+        if($this->db->affected_rows() > 0) {
+            echo "success;Drop Down Item was deleted successfully.";
+        } else {
+            echo "failure;Something went wrong, please try again.";
+        }
+    }
+    
+    public function site_errors() {
+        
+        $head_params = array(
+            'title' => 'Overall Site Errors | Grab Talent',
+            'description' => "Grab Talent is the best online recruitment portal",
+            'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
+        );
+        
+        $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
+        $template["header"] = $this->load->view('common/site_admin/header', null, true);
+        $template["contents"] = $this->load->view('site_admin/site_errors', null, true);
+        $this->load->view('common/site_admin/layout', $template);
+	}
+    
+    public function file_download() {
+        
+    	$file_url = "./application/logs/".$this->uri->segment(4);
+    	$data = file_get_contents($file_url); // Read the file's contents
+    	$name = $this->uri->segment(4);
+    	echo force_download($name, $data);
+    }
+    
+    public function clientuser_create(){
+        
+        $newRecEmail = $this->input->post('inputRecruiterContactEmail');
+        
+        $condition = "employer_contact_email =" . "'" . $this->input->post('inputRecruiterContactEmail') . "'";
+        $this->db->select('*')->from('employers')->where($condition);
+        $query = $this->db->get();
+        $newRecEmail_cnt = $query->num_rows();
+        
+        if($newRecEmail_cnt == 0) {
+            
+            // Generate random password
+            $recruitertmpPasswd = $this->generateStrongPassword(8);
+            
+            //To retrieve email from session.
+            $email = $this->session->userdata('logged_in');
+                    
+            // Check validation for user input in SignUp form
+            $this->load->model('grabtalent_employers_model');
+            $code = Grabtalent_employers_model::generate_unique_code();
+                            
+            $ClientModels = $this->_saveClients(
+                $this->input->post('inputRecruiterName'),
+                $this->input->post('inputRecruiterWebAddress'),
+                $this->input->post('inputRecruiterPhone'),
+                $this->input->post('inputRecruiterFax'),
+                $this->input->post('inputRecruiterAddress'),
+                $this->input->post('inputRecruiterCountry'),
+                $this->input->post('inputRecruiterDescription'),
+                $this->input->post('inputRecruiterContactFName'),
+                $this->input->post('inputRecruiterContactLName'),
+                $this->input->post('inputRecruiterContactEmail'),
+                $this->input->post('inputRecruiterStatus'),
+                $email
+            );
+            
+            if($this->db->trans_status() == '1') {                                
+                echo "success:".$ClientModels.";Client was created successfully, redirecting to client page!";
+                
+                $empData = array(  
+                            'employer_code' => $code, 
+                            'employer_email' => $this->input->post('inputRecruiterContactEmail'), 
+                            'employer_password' => md5($recruitertmpPasswd)                            
+                        );
+                $this->db->insert('employer_login', $empData);
+                if($this->db->affected_rows() > 0) {
+                    $this->sendWelcomeEmail($this->input->post('inputRecruiterContactEmail'), $recruitertmpPasswd);
+                    $intvtempl = "Hi {candidate_name},<br /><br />Thanks for your application to {job_title}. We were impressed by your background and would like to invite you to interview at {interview_location} to tell you a little more about the position and get to know you better.<br/><br/>Please let me know which of the following times work for you, and I can send over a confirmation and details:<br/><br />{interview_datetime}<br/><br />Looking forward to meeting you,<br/><br />{employer_email}<br/>".$this->input->post('inputRecruiterPhone');
+                    
+                    $interviewtmpl_arrayins = array( 
+			        'employer_code' => $ClientModels,
+			        'employer_name' => $this->input->post('inputRecruiterName'),
+			        'employer_contact_email' => $this->input->post('inputRecruiterContactEmail'),
+			        'template_interview' => $intvtempl,
+			        'template_offer' => $intvtempl,
+			        'template_created_date' => date('Y-m-d h:m:s')
+			);
+		    $this->db->insert('grabtalent_template', $interviewtmpl_arrayins);
+	            
+                } else {
+                    echo "failure;Something went wrong, please try again.";
+                }
+                
+            } else {
+                echo "failure;Client was not saved, please try again!";
+                $this->db->trans_rollback();
+            }
+        } else {
+            echo "failure;Client with same email already exists, please choose other recruiter name!";
             $this->db->trans_rollback();
         }
-            
     }
     
     // To save / register jobs into job table.
@@ -319,7 +447,7 @@ class Site_admin extends CI_Controller {
     // Candidate profile page.
     public function employer_profile() {
         $head_params = array(
-            'title' => 'GT | My Profile',
+            'title' => 'My Profile | Grab Talent',
             'description' => "Grab Talent is the best online recruitment portal",
             'keywords' => 'jobs singapore, recruitment agency, GT, Grab Talent',
         );
@@ -327,7 +455,59 @@ class Site_admin extends CI_Controller {
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/employer_profile', null, true);
         $this->load->view('common/site_admin/layout', $template);
-    }    
+    }
+    
+    // Send Welcome email to new recruiter with temporary password.    
+    public function sendWelcomeEmail($emailAdd, $passWd) {
+        
+        $head_params = array('recruiterEmailAdd' => $emailAdd, 'recruitertmpPwd' => $passWd);
+        $message = $this->load->view('common/site_admin/welcome_email',$head_params,true);
+        $this->email->set_newline("\r\n");
+        $this->email->from('do-not-reply@grab-talent.net','do-not-reply@grab-talent.net'); // change it to yours
+        $this->email->to($emailAdd);// change it to yours
+        $this->email->subject('Welcome to Grab Talent');
+        $this->email->message($message);
+        if($this->email->send()) {
+            echo "success;Please check your email for login details!";
+        } else {
+            echo "failure;Please try again as the email was not sent";
+            log_message('error', 'Something went wrong while sending email to -'.$emailAdd);
+        }
+    }
+    
+    function generateStrongPassword($length = 9, $add_dashes = false, $available_sets = 'luds') {
+    	$sets = array();
+    	if(strpos($available_sets, 'l') !== false)
+    		$sets[] = 'abcdefghjkmnpqrstuvwxyz';
+    	if(strpos($available_sets, 'u') !== false)
+    		$sets[] = 'ABCDEFGHJKMNPQRSTUVWXYZ';
+    	if(strpos($available_sets, 'd') !== false)
+    		$sets[] = '23456789';
+    	if(strpos($available_sets, 's') !== false)
+    		$sets[] = '!@#$%&*?';
+    	$all = '';
+    	$password = '';
+    	foreach($sets as $set)
+    	{
+    		$password .= $set[array_rand(str_split($set))];
+    		$all .= $set;
+    	}
+    	$all = str_split($all);
+    	for($i = 0; $i < $length - count($sets); $i++)
+    		$password .= $all[array_rand($all)];
+    	$password = str_shuffle($password);
+    	if(!$add_dashes)
+    		return $password;
+    	$dash_len = floor(sqrt($length));
+    	$dash_str = '';
+    	while(strlen($password) > $dash_len)
+    	{
+    		$dash_str .= substr($password, 0, $dash_len) . '-';
+    		$password = substr($password, $dash_len);
+    	}
+    	$dash_str .= $password;
+    	return $dash_str;
+    }   
 }
 
 /* End of file welcome.php */

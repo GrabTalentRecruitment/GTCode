@@ -6,7 +6,7 @@
     <div class="site-wrapper-inner">
         <div class="container">
             <ol class="breadcrumb visible-lg-block">
-                <li><a href="<?php echo https_url('/'.$this->lang->lang().'/siteadmin_dashboard')?>">Home</a></li>
+                <li><a href="<?php echo https_url('/'.$this->lang->lang().'/site_admin/dashboard')?>">Home</a></li>
                 <li><a href="<?php echo https_url('/'.$this->lang->lang().'/site_admin/candidate_list')?>">Candidates</a></li>
             </ol>
             <?php if($candidates) {

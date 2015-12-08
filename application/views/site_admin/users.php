@@ -85,15 +85,6 @@ $clientusrredirectURL = $this->lang->lang().'/site_admin/employers';
                             <input type="text" class="form-control" id="inputRecruiterContactEmail" name="inputRecruiterContactEmail" placeholder="<?=lang('siteadminusers.recruitercontactemail');?>" required />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-5">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="inputRecruiterStatus" value="off"><?=lang('siteadminusers.isActive');?>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-lg btn-primary btn-block" type="submit" id="button-client-create"><?=lang('siteadminusers.createclientbutton')?></button>

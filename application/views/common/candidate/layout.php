@@ -4,11 +4,11 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <?php echo $head; ?>
-<body>
-<?php echo $header; ?>
-<!--[if lt IE 7]>
-    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-<![endif]-->
-<?php echo $contents; ?>
+<body class="page-home">
+	<div id="page" style="background: url('/images/home-bg.jpg') center no-repeat; background-size: cover;">
+		<?php echo $header; ?>
+		<?php echo $contents; ?>
+	</div>
+<?php echo $footer; ?>
 </body>
 </html>

@@ -45,7 +45,7 @@ $applnOffer_url = https_url($this->lang->lang().'/recruiter/applicant_offer');
                                     <th><?=lang('recruiterlogin.applnViewcol3');?></th>
                                     <th><?=lang('recruiterlogin.applnViewcol4');?></th>
                                     <th><?=lang('recruiterlogin.applnViewcol5');?></th>
-                                    <th><?=lang('recruiterlogin.applnViewcol6');?></th>
+                                    <th><?=lang('recruiterlogin.applnViewcol6');?>&nbsp;&nbsp;&nbsp;<button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#HelpModal" style="float: right;">Help&nbsp;<i class="fa fa-question"></i></button></th>
                                     <th><?=lang('recruiterlogin.applnViewcol8');?></th>
                                 </tr>
                             </thead>
@@ -55,14 +55,16 @@ $applnOffer_url = https_url($this->lang->lang().'/recruiter/applicant_offer');
                                         $candData = array('username' => $cand['candidate_email'] );
                                         $result = $this->login_database->read_user_information($candData,'candidate');
                                         $jobs = $this->login_database->read_job_information($this->uri->segment(4));
-                                        $candStage = $cand ['candidate_appln_stage'];
+                                        $candStage = $cand ['candidate_appln_stage'];                                        
                                     ?>                                
                                     <tr>
                                         <td style="vertical-align: middle;"><?php echo "<a href='".https_url($this->lang->lang()."/recruiter/applicant_view/".$cand['candidate_coderefs_id'])."' role='button'>".$result[0]['candidate_lastname']." ".$result[0]['candidate_firstname']."</a>"?></td>
                                         <td class="job-title" style="vertical-align: middle;"><?php echo htmlspecialchars($jobs[0]['job_title']); ?></td>
                                         <td style="vertical-align: middle;"><?php echo htmlspecialchars($jobs[0]['job_primaryworklocation_country'])?></td>
                                         <td style="vertical-align: middle;"><?php echo htmlspecialchars($jobs[0]['job_primaryworklocation_city'])?></td>
-                                        <td style="vertical-align: middle; text-align: center;"><a id="resumeDownlod" data-toggle="modal" data-target="#ResumedownloadModal" title="<?php echo $result[0]['resume_url']; ?>"><img src="/images/icons/icon_resume.jpg" title="<?=lang('candidateprofile.viewResumeBtn')?>" height="40px" style="cursor: pointer;"/></a></td>
+                                        <td style="vertical-align: middle; text-align: center;">
+                                        <a href='<?php echo $resumeDownload_url.$result[0]['resume_url']; ?>'><img src="/images/icons/icon_resume.jpg" title="<?=lang('candidateprofile.viewResumeBtn')?>" height="40px" style="cursor: pointer;"/></a>
+                                        </td>
                                         <td style="vertical-align: middle; text-align: center;">
                                             <?php
                                                 if($candStage == 'Application') {
@@ -88,11 +90,8 @@ $applnOffer_url = https_url($this->lang->lang().'/recruiter/applicant_offer');
                                                 }
                                             ?>
                                         </td>
-                                        <td style="vertical-align: middle;">
-                                            <ol style="list-style: none; list-style-type: none;">
-                                                <li style="display: inline; padding-right: 20px;"><a title="<?php echo $candStage; ?>" data-toggle="modal" data-whatever="<?php echo $result[0]['candidate_lastname']." ".$result[0]['candidate_firstname']; ?>" id="<?php echo $cand['candidate_coderefs_id']; ?>" data-target="#candStepModal"><img src="/images/icons/icon_nextStep.png" alt="Proceed to Next Step" title="Proceed to Next Step" height="50px" style="cursor: pointer;"/></a></li>
-                                                <li style="display: inline;"><button type="button" class="btn" title="<?php echo $candStage; ?>" name="<?php echo $cand['candidate_coderefs_id']?>" id="Reject_btn" style="background-color: transparent; padding:0px;"><img src="/images/icons/icon_rejectStep.png" alt="Reject Step" title="Reject Step" height="50px" style="cursor: pointer;"/></button></li>
-                                            </ol>
+                                        <td style="vertical-align: middle; text-align:center;">
+                                            <a title="<?php echo $candStage; ?>" data-toggle="modal" data-whatever="<?php echo $result[0]['candidate_lastname']." ".$result[0]['candidate_firstname']; ?>" id="<?php echo $cand['candidate_coderefs_id']; ?>" data-target="#candStepModal" style="cursor:pointer;"><img src="/images/icons/icon_nextStep.png" alt="Proceed to Next Step" title="Proceed to Next Step" height="35px" style="cursor: pointer;"/></a>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -139,7 +138,8 @@ $applnOffer_url = https_url($this->lang->lang().'/recruiter/applicant_offer');
                         <button type="button" class="btn btn-info col-lg-12" data-toggle="modal" id="shortlistBtn" title="Shortlist"><b><?=lang('applicantTrack.btnlabel1');?></b></button><br /><br />
                         <button type="button" class="btn btn-info col-lg-12" data-toggle="modal" id="InterviewBtn" title="Interview"><b><?=lang('applicantTrack.btnlabel2');?></b></button><br /><br />
                         <button type="button" class="btn btn-info col-lg-12" data-toggle="modal" id="OfferEmailBtn" title="Offer-Email"><b><?=lang('applicantTrack.btnlabel4');?></b></button><br /><br />
-                        <button type="button" class="btn btn-info col-lg-12" data-toggle="modal" id="placementBtn" title="Placement"><b><?=lang('applicantTrack.btnlabel6');?></b></button><br />
+                        <button type="button" class="btn btn-info col-lg-12" data-toggle="modal" id="placementBtn" title="Placement"><b><?=lang('applicantTrack.btnlabel6');?></b></button><br /><br />
+                        <button type="button" class="btn btn-info col-lg-12" title="<?php echo $candStage; ?>" name="<?php echo $cand['candidate_coderefs_id']?>" id="Reject_btn"><b>Reject Candidate</b></button><br />
                     </div>                   
                     <input type="hidden" class="form-control" id="candStepUpd-refCode" name="candStepUpd-refCode" />
                 </form>
@@ -148,3 +148,40 @@ $applnOffer_url = https_url($this->lang->lang().'/recruiter/applicant_offer');
     </div>
 </div>
 <!-- Skill Modal Window -- End -->
+<!-- Modal Dialog to explain the bars - Start -->
+<div class="modal fade bs-example-modal-sm" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="myHelpModal" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-6 control-label">Application</label>
+                    <div class="col-sm-6">
+                        <div class="progress"><div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div>
+                    </div>
+                </div><br />
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-6 control-label">Shortlist</label>
+                    <div class="col-sm-6">
+                        <div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div>
+                    </div>
+                </div><br />
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-6 control-label">Interview, Offer, Placed</label>
+                    <div class="col-sm-6">
+                        <div class="progress"><div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div>
+                    </div>
+                </div><br />
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-6 control-label">Rejected</label>
+                    <div class="col-sm-6">
+                        <div class="progress"><div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p>Please click outside of this window to close.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Dialog to explain the bars - End -->

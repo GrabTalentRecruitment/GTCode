@@ -1,0 +1,105 @@
+/*
+Theme Name: grab talent
+Author: Pat - iconcept
+*/
+
+/*--------------------------------------------------------------
+# RESPONSIVES
+--------------------------------------------------------------*/
+
+body, html {
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+#page {
+	min-height: -moz-calc(100% - (120px));
+    min-height: -webkit-calc(100% - (120px));
+    min-height: calc(100% - (120px));
+}
+
+.mobile-toggle {
+	position: absolute;
+	right: 20px;
+	top: 32px;
+	font-size: 28px;
+	display: none;
+	color: #000;
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
+}
+.mobile-table {overflow-x: auto; overflow-y: hidden;}
+
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px){
+	
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px){
+	
+	
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px){
+	/* Header */ 
+	.site-header {box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1);}
+	.mobile-toggle {display: block;}
+	.site-menu {display: none;}
+	
+	#page {
+		min-height: -moz-calc(100% - (140px));
+		min-height: -webkit-calc(100% - (140px));
+		min-height: calc(100% - (140px));
+	}
+	.home-header .row > div,
+	.site-header .site-logo {text-align: center;}
+	.site-header .site-logo {display: block;}
+	.home-header .home-menu,
+	.site-header .site-menu {float: none; margin-top: 20px;}
+	.site-header .site-menu li {display: block;}
+	
+	/* Footer */ 
+	.site-footer p,
+	.site-footer .footer-social {text-align: center;}
+	
+	/* Pages */ 
+	.page-header {padding-top: 20px; padding-bottom: 20px;}
+	.page-header .page-title,
+	.page-header .page-submenu {text-align: center;}
+	.page-header .page-title {text-shadow: 0px 0px 2px rgba(150, 150, 150, 0.9);}
+	.page-content {padding: 15px;}
+	.page-content table tr th,
+	.page-content table tr td {font-size: 10px; padding: 4px;}
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px){
+	.page-content {padding: 10px;}
+	.site-header .site-logo {text-align: left;}
+	.page-header .page-submenu .button {padding: 8px 12px; font-size: 10px; margin-left: 8px;}
+	
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px){
+	/* Generals */
+	button, html input[type="button"], input[type="reset"], input[type="submit"] {font-size: 12px;padding: 8px 10px;}
+	.button {font-size: 12px; padding: 8px 16px;}
+	
+	/* Header */ 
+	/* Footer */
+	.site-footer p a {display: inline-block;}
+	
+	/* Pages */
+	.page-header {padding-top: 5px; padding-bottom: 5px;}
+	
+	
+	/* home page template */
+	.home-caption h2 {font-size: 40px;}
+	.home-caption p {font-size: 24px;}
+	
+}

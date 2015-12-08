@@ -20,6 +20,7 @@
             ?>
                 <div class="row">
                     <div class="col-xs-12 col-md-12 col-lg-12">
+                    	<?php echo "<img src=/images/recruiter/logo/".$job['employer_logo_url']." alt='Recruiter_Avatar' height='100px' /><br/>"; ?>
                         <h2><?php echo $job['employer_name'].",".$job['employer_country']; ?></h2>
                         <p>
                             <?php 

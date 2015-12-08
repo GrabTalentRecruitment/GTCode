@@ -10,8 +10,8 @@
         <div class="container">
             <div class="alert alert-success" id="modal-error-msg" role="alert" style="display: none;"></div>
             <div class="row">                    
-                <h3><b><img src="/images/icons/profile.png" alt="" title="" height="50px" /> Create / Edit Interview Email Template</b></h3>
-                <p>While creating template, please use the below legends in order to map candidate details</p>
+                <h3><b><img src="/images/icons/profile.png" alt="" title="" height="50px" /><?=lang('recruiterlogin.emailtemplate_1hdng');?></b></h3>
+                <p><?=lang('recruiterlogin.emailtemplate_1hdng_1');?></p>
 	            <ol>
 	                <li>{candidate_name} - Candidate Name</li>
 	                <li>{job_title} - Job Title</li>
@@ -25,14 +25,14 @@
                 <input type="hidden" id="inputintvwEmailUpdUrl" value="<?php echo https_url($intvwtmplupd_url); ?>" />
                 <?php
                     $empDet = $this->login_database->read_user_information( 
-                        array('username' => $this->session->userdata('logged_in')), 'employer' 
+                        array('username' => $this->session->userdata('recruiter_login')), 'employer' 
                     );
                 ?>
-                <input type="hidden" id="inputintvwEmailContact" value="<?php echo $this->session->userdata('logged_in'); ?>" />
+                <input type="hidden" id="inputintvwEmailContact" value="<?php echo $this->session->userdata('recruiter_login'); ?>" />
                 <input type="hidden" id="inputintvwEmailCtnctCode" value="<?php echo $empDet[0]['employer_code']; ?>" />
                 <input type="hidden" id="inputintvwEmailCtnctName" value="<?php echo $empDet[0]['employer_name']; ?>" />
                 <?php
-                    $condition = "employer_contact_email ='".$this->session->userdata('logged_in')."'";
+                    $condition = "employer_contact_email ='".$this->session->userdata('recruiter_login')."'";
                     $this->db->select('template_interview');
                     $this->db->from('grabtalent_template');
                     $this->db->where($condition);

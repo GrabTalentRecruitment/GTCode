@@ -10,7 +10,7 @@ class Aboutus extends CI_Controller {
         $this->lang->load('common');
     }
     
-	public function index() {        
+    public function index() {
        
         $head_params = array(
             'title' => 'About Us | Grab Talent',
@@ -21,9 +21,10 @@ class Aboutus extends CI_Controller {
         $template["head"] = $this->load->view('common/head', $head_params, true);
         $template["header"] = $this->load->view('common/header', null, true);
         $template["contents"] = $this->load->view('aboutus/index', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/layout', $template);
         
-	}
+    }
 }
 
 /* End of file welcome.php */

@@ -15,7 +15,7 @@ $applnOffer_url = https_url($this->lang->lang().'/recruiter/applicant_offer');
         <div class="container-fluid">
             <div class="col-sm-12 col-sm-offset-0 col-md-12 col-md-offset-0 main">
                 <?php                    
-                    $sess_array = array( 'username' => $this->session->userdata('logged_in') );
+                    $sess_array = array( 'username' => $this->session->userdata('recruiter_login') );
                     $hiringcomp_code = $this->login_database->read_user_information($sess_array, 'employer');
                     $candcoderefId = $this->uri->segment(4);
                     $candjobs = array();
@@ -55,7 +55,7 @@ $applnOffer_url = https_url($this->lang->lang().'/recruiter/applicant_offer');
                                     <th><?=lang('recruiterlogin.applnViewcol4');?></th>
                                     <th><?=lang('recruiterlogin.applnTrackcol5');?></th>
                                     <th><?=lang('recruiterlogin.applnTrackcol6');?></th>
-                                    <th><?=lang('recruiterlogin.applnViewcol6');?></th>
+                                    <th><?=lang('recruiterlogin.applnViewcol6');?>&nbsp;&nbsp;&nbsp;<button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#HelpModal" style="float: right;">Help&nbsp;<i class="fa fa-question"></i></button></th>
                                     <th><?=lang('recruiterlogin.applnViewcol8');?></th>
                                 </tr>
                             </thead>
@@ -104,11 +104,9 @@ $applnOffer_url = https_url($this->lang->lang().'/recruiter/applicant_offer');
                                                 }
                                             ?>
                                         </td>
-                                        <td style="vertical-align: middle;">
-                                            <ol style="list-style: none; list-style-type: none;">                                                                                                                                                                               
-                                                <li style="display: inline; padding-right: 20px;"><a title="<?php echo $candStage."/". $jobs[0]['job_number']; ?>" data-toggle="modal" data-whatever="<?php echo $candinfo[0]['candidate_lastname']." ".$candinfo[0]['candidate_firstname']; ?>" id="<?php echo $candcoderefId; ?>" data-target="#candStepModal"><img src="/images/icons/icon_nextStep.png" alt="Proceed to Next Step" title="Proceed to Next Step" height="50px" style="cursor: pointer;"/></a></li>
-                                                <li style="display: inline;"><button type="button" class="btn" title="<?php echo $candStage."/". $jobs[0]['job_number']; ?>" name="<?php echo $candcoderefId; ?>" id="Reject_btn" style="background-color: transparent; padding:0px;"><img src="/images/icons/icon_rejectStep.png" alt="Reject Step" title="Reject Step" height="50px" style="cursor: pointer;"/></button></li>
-                                            </ol>
+                                        <td style="vertical-align: middle; text-align:center; width:130px;">
+                                        	<a title="<?php echo $candStage."/". $jobs[0]['job_number']; ?>" data-toggle="modal" data-whatever="<?php echo $candinfo[0]['candidate_lastname']." ".$candinfo[0]['candidate_firstname']; ?>" id="<?php echo $candcoderefId; ?>" data-target="#candStepModal"><img src="/images/icons/icon_nextStep.png" alt="Proceed to Next Step" title="Proceed to Next Step" height="35px" style="cursor: pointer;"/></a>
+                                        	<button type="button" class="btn" title="<?php echo $candStage."/". $jobs[0]['job_number']; ?>" name="<?php echo $candcoderefId; ?>" id="Reject_btn" style="background-color: transparent; padding:0px;"><img src="/images/icons/icon_rejectStep.png" alt="Reject Step" title="Reject Step" height="35px" style="cursor: pointer;"/></button>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -164,3 +162,40 @@ $applnOffer_url = https_url($this->lang->lang().'/recruiter/applicant_offer');
     </div>
 </div>
 <!-- Skill Modal Window -- End -->
+<!-- Modal Dialog to explain the bars - Start -->
+<div class="modal fade bs-example-modal-sm" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="myHelpModal" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-6 control-label">Application</label>
+                    <div class="col-sm-6">
+                        <div class="progress"><div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div>
+                    </div>
+                </div><br />
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-6 control-label">Shortlist</label>
+                    <div class="col-sm-6">
+                        <div class="progress"><div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div>
+                    </div>
+                </div><br />
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-6 control-label">Interview, Offer, Placed</label>
+                    <div class="col-sm-6">
+                        <div class="progress"><div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div>
+                    </div>
+                </div><br />
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-6 control-label">Rejected</label>
+                    <div class="col-sm-6">
+                        <div class="progress"><div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p>Please click outside of this window to close.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Dialog to explain the bars - End -->

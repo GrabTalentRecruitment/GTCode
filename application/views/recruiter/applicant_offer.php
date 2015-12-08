@@ -22,13 +22,12 @@
                         </h4>
                     </div>
                     <?php
-                        $tmpuserData = array('username' => $this->session->userdata('logged_in') );
+                        $tmpuserData = array('username' => $this->session->userdata('recruiter_login') );
                         $userData = $this->login_database->read_user_information($tmpuserData,'employer'); 
-                        $tmpcandidId = $this->uri->segment(4);
-                        $candidId = explode('-',$tmpcandidId);
+                        $candidId = $this->uri->segment(4);
                         $jobRefId = $this->uri->segment(5);
                         $jobDet = $this->login_database->read_job_information( $jobRefId );
-                        $condition = "candidate_ref_id ='".$candidId[0]."'";
+                        $condition = "candidate_coderefs_id ='".$candidId."'";
                         $this->db->select('*');
                         $this->db->from('candidate_signup');
                         $this->db->where($condition);
@@ -87,10 +86,10 @@
                                                 <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent-right"></i></a>
                                             </div>
                                         </div><br />
-                                        <div id="editor" name="inputEmailBody"></div>
+                                        <div id="editor" name="inputOfferEmailBody"></div>
                                         <div id="inputoffertmpl" name="inputoffertmpl" style="display: none;">
                                             <?php
-                                                $condition = "employer_contact_email ='".$this->session->userdata('logged_in')."'";
+                                                $condition = "employer_contact_email ='".$this->session->userdata('recruiter_login')."'";
                                                 $this->db->select('template_offer');
                                                 $this->db->from('grabtalent_template');
                                                 $this->db->where($condition);

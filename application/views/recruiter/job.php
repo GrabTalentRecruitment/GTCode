@@ -1,67 +1,111 @@
-<?php $jobs = $this->session->userdata('job_detail'); ?>
-<div class="visible-xs vert-offset-top-5"></div>
-<div class="visible-sm vert-offset-top-8"></div>
-<div class="visible-lg visible-md hidden-xs vert-offset-top-5"></div>
-<div class="site-wrapper">
-    <div class="site-wrapper-inner">
-        <div class="container">
-            <?php if($jobs) {
-                foreach($jobs as $job) {
-                    $Vidresume = $job['job_video_url'];
-                    if($job['job_posted'] == "off") {
+<?php 
+$jobnumber = $this->uri->segment(4);
+$jobNumcond = "job_number='".$jobnumber."'";
+$this->db->select('job_title,job_salarydisplay,job_minsalary_currency,job_minmonth_salary,job_maxsalary_currency,job_maxmonth_salary,job_mandatory_skills,job_primaryworklocation_country,job_primaryworklocation_city,job_category,job_function,job_industry,job_sub_industry,job_benefits,job_workinghours,job_posted, job_postdate, job_created_by')->from('jobs')->where('job_number',$jobnumber);
+$query = $this->db->get();
+$jobs = $query->result_array(); ?>
+<div class="site-content" >
+    <?php if($jobs) {
+        foreach($jobs as $job) {                        
+    ?>
+    <div class="container page-header">
+        <div class="row">
+            <div class="col-md-6 no-padding">
+                <h1 class="page-title font-1"><?php echo $job['job_title']; ?>
+                <?php 
+                   if($job['job_posted'] == "off") {
                         $jobPost = '[<font color="red">DRAFT</font>]';
                     } else {
                         $jobPost = '';
                     }
-            ?>
-                <div class="row">
-                    <div class="col-xs-12 col-md-7 col-lg-7">
-                        <h2><?php echo $job['job_title']; ?> <?php echo $jobPost; ?></h2>
-                        <p><?php echo $job['job_primaryworklocation_city'].",".$job['job_primaryworklocation_country']; ?></p>
-                        <p><strong>Job Category / Function:</strong> <?php echo $job['job_category'].",".$job['job_function']; ?></p>
-                        <p><strong>Job Industry / Sub-Industry:</strong> <?php echo $job['job_industry'].",".$job['job_sub_industry']; ?></p>
-            <?php
-                        if($job['job_posted'] == "on") {
-                            echo '<p><strong>Posted on:</strong> '.date("d-M-Y",strtotime($job['job_postdate'])).'</p>';
-                        } else {
-                            echo '';
-                        }
-            ?>                        
-                        <p><strong>Salary:</strong> <?php echo $job['job_minsalary_currency']." ".$job['job_minmonth_salary']." - ".$job['job_maxsalary_currency']." ".$job['job_maxmonth_salary']; ?></p>
-                        <p><strong>Mandatory Skills:</strong> <?php echo $job['job_mandatory_skills']; ?></p>
-                        <p><strong>Desired Skills:</strong> <?php echo $job['job_desired_skills']; ?></p>
-                    </div>
-                    <div class="col-md-5 col-lg-5">
-                        <?php if( $Vidresume != "" || !empty($Vidresume) ) { ?>
-                            <video controls class="col-xs-12 col-md-12 col-lg-12" preload="auto" height="auto">
-                                <source src="<?php echo base_url()."public/recruiter/".$job['job_video_url']; ?>" type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                                Your browser does not support the video tag.
-                            </video>
-                        <?php } else { ?><br />
-                            <img src="/images/no-video-pic.jpg" style="border: 1px solid black;" class="col-xs-12 col-md-12 col-lg-12" />
-                        <?php } ?>
-                    </div>
-                </div><br />
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <p><strong>Job Description:</strong></p>
-                        <p><?php echo html_entity_decode($job['job_description']);?></p><br />
-                        <p><strong>Benefits:</strong></p>
-                        <p><?php echo $job['job_benefits'];?></p><br />
-                        <p><strong>Working Hours:</strong></p>
-                        <p><?php echo $job['job_workinghours'];?></p>
-                    </div>
-                </div>
-            <?php } ?>
-            <div class="row">
-                <div class="col-md-12 col-md-offset-0">
-                    <?php } else { ?>
-                        <div class="col-xs-12">
-                            <h3>This job does not exist (or) you typed the wrong URL.</h3>
-                        </div>
-                    <?php } ?>                
+                echo $jobPost; ?>
+                </h1>
+            </div>
+            <div class="col-md-6 no-padding">
+                <div class="subpage-breadcrumbs">
+                    <a href="<?php echo https_url($this->lang->lang().'/recruiter/dashboard',true); ?>"><?=lang('candidateJob.breadcrumblbl1');?></a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="page-content container">
+    	<div class="row">
+	    <div class="col-xs-12 col-md-12 col-lg-12 text-center">
+	    	<input type="button" class="button" onclick="window.location.href='<?php echo https_url($this->lang->lang().'/recruiter/job_edit/'.$jobnumber); ?>'" value="Edit" />
+            </div>
+        </div><br />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="job-description">
+                    <table class="info-table">
+                        <tr>
+                            <td><strong><?=lang('candidateJob.catfunclbl');?> :</strong></td>
+                            <td><?php echo $job['job_category'].",".$job['job_function']; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong><?=lang('candidateJob.indlbl');?> :</strong></td>
+                            <td><?php echo $job['job_industry'].",".$job['job_sub_industry']; ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong><?=lang('candidateJob.postDt');?> :</strong></td>
+                            <td><?php echo date("d-M-Y",strtotime($job['job_postdate'])); ?></td>
+                        </tr>
+                        <?php if($job['job_salarydisplay'] != "no") { ?>
+                        <tr>
+                            <td><strong><?=lang('candidateJob.salaryinfo');?> :</strong></td>
+                            <td><?php echo $job['job_minsalary_currency']." ".$job['job_minmonth_salary']." - ".$job['job_maxmonth_salary']; ?></td>
+                        </tr>
+                        <?php } ?>
+                        <tr>
+                            <td colspan="2"><strong><?=lang('candidateJob.jobdesc');?> :</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>
+                                    <?php 
+                                        $this->db->select('job_description')->from('jobs')->where('job_number',$jobnumber);
+                                        $jobDescquery = $this->db->get();
+                                        $jobDesc = $jobDescquery->result_array();
+                                        echo html_entity_decode($jobDesc[0]['job_description'], ENT_COMPAT, "UTF-8");
+        	                        ?>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong><?=lang('candidateJob.benefits'); ?>: </strong></td>
+                            <td><?php echo $job['job_benefits'];?></td>
+                        </tr>
+                        <tr>
+                            <td><strong><?=lang('candidateJob.workhrs');?>: </strong></td>
+                            <td><?php echo $job['job_workinghours'];?></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        
+            <div class="col-md-6 ">
+                <p><strong><?=lang('candidateJob.aboutclient');?>: </strong></p>
+                <p><?php $result = $this->login_database->fetch_job_details($job['job_created_by']);?></p>
+                <p>&nbsp;</p>
+                <p><strong><?=lang('candidateJob.empaddress');?>: </strong></p>
+                <p><?php echo $result[0]['employer_address'];?></p>
+                <img src="https://maps.googleapis.com/maps/api/staticmap?center=<?php echo $result[0]['employer_address'];?>&zoom=18&size=600x300&maptype=roadmap%20&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:red%7Clabel:C%7C1.2821075,103.8487531" class="col-md-12 col-sm-12 col-xs-12" />
+            </div>
+        </div>
+    
+    </div>
+    <?php } ?>
+    <?php } else { ?>
+        <div class="container page-header">
+            <div class="row">
+                <div class="col-md-12 no-padding text-center">
+                    <h1 class="page-title font-1"><?=lang('candidateJob.404');?></h1>
+                </div>
+            </div>
+        </div>
+    <?php } ?>    
+    
+    <div class="clearfix"></div>
+
+</div> <!-- end site-content -->

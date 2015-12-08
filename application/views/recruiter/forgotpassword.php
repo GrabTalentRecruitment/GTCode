@@ -8,18 +8,18 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3 vert-offset-top-12">
                 <div class="panel panel-default">
-					<div class="panel-body">
+		    <div class="panel-body">
                         <h3><b><?=lang('recruiterhome.labelforgotpasswd');?></b></h3><br />
                         <p><?=lang('recruiterhome.labelforgotpwdtxt');?></p>
                         <form method="post" accept-charset="utf-8" role="form">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" name="inputemailaddress" id="inputemailaddress" placeholder="<?=lang('recruiterhome.labelemail');?>" required autofocus />
+                                    <input type="text" name="inputemailaddress" id="inputemailaddress" placeholder="<?=lang('recruiterhome.labelemail');?>" required autofocus />
                                 </div>
                             </div><br />
                             <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-lg btn-primary btn-block" type="submit" id="button-submit-password"><?=lang('recruiterhome.forgotpasswordbtnlbl');?></button>
+                                <div class="col-md-12 text-center">
+                                    <button class="button" type="submit" id="button-submit-password"><?=lang('recruiterhome.forgotpasswordbtnlbl');?></button>
                                 </div>
                             </div>
                         </form>

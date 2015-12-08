@@ -1,7 +1,7 @@
 <?php 
 $menusettings_url = https_url($this->lang->lang().'/site_admin/get_menusettings');
 $menusettingsUpd_url = https_url($this->lang->lang().'/site_admin/menusettings_update');
- ?>
+?>
 <script src="/js/site_admin/siteAdmin_menuupdate.js" type="text/javascript"></script>
 <style type="text/css">
 	.floatThead-floatContainer { left: inherit !important; }
@@ -14,7 +14,6 @@ $menusettingsUpd_url = https_url($this->lang->lang().'/site_admin/menusettings_u
 	.filterable .filters input[disabled]::-moz-placeholder { color: #333; }
 	.filterable .filters input[disabled]:-ms-input-placeholder { color: #333; }
 </style>
-
 <div class="visible-xs vert-offset-top-5"></div>
 <div class="visible-sm vert-offset-top-8"></div>
 <div class="visible-lg visible-md hidden-xs vert-offset-top-5"></div>
@@ -41,7 +40,7 @@ $menusettingsUpd_url = https_url($this->lang->lang().'/site_admin/menusettings_u
             	<div class="row">
                     <input type="hidden" id="menuSettingspostURL" value="<?php echo $menusettings_url; ?>" />
                     <input type="hidden" id="menuSettingsupdateURL" value="<?php echo $menusettingsUpd_url; ?>" />
-                    <h2><img src="/images/icons/settings.png" alt="Settings icon"/> Menu Items List</h2>
+                    <h2><img src="/images/icons/settings.png" alt="Settings icon"/><?=lang('siteadminusers.settingshdng');?></h2>
             		<div class="panel panel-primary filterable">
         				<div class="table-responsive">
         					<table id="mytable" class="table table-striped">

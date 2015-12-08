@@ -155,10 +155,13 @@ $(function(){
     }
     
     //Resume Download / View button.
-	$("#resumeDownlod").click(function(e) {
+    $("#resumeDownlod").click(function(evt) {
+    	evt.preventDefault();
         var filename = $("#resumedownloadURL").val() + $(this).attr('title');
+        alert(filename); return false;
         $("#ResumedownloadModal").find('.modal-header iframe[id="resumedownloadframe"]').attr('src',filename);
-        setTimeout(function(){ $('#ResumedownloadModal').modal('hide'); });       
-	});
+        setTimeout(function(){ $('#ResumedownloadModal').modal('hide'); });
+        
+    });
     
 });

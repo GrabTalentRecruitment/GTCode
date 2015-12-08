@@ -312,26 +312,6 @@ function view_phone_area($value) {
     }
 }
 
-function view_skill_level($value) {
-    $visa_status_list = array(
-        '' => 'Please select',
-        "Singaporean" => "Singaporean",
-        "Permanent Resident" => "Permanent Resident",
-        "Employment Pass" => "Employment Pass",
-        "S-Pass" => "S-Pass",
-        "Dependant Pass" => "Dependant Pass",
-        "Others" => "Others",
-        "Not Applicable" => "Not Applicable",
-    );
-    foreach($visa_status_list as $k => $v) {
-        if ($value == $k) {
-            echo '<option value="'.$k.'" selected="selected">'.$v.'</option>';
-        } else {
-            echo '<option value="'.$k.'">'.$v.'</option>';
-        }
-    }
-}
-
 function view_visa_status($value) {
     $visa_status_list = array(
         '' => 'Please select',
@@ -388,6 +368,59 @@ function view_language_level($value) {
             echo '<option value="'.$k.'">'.$v.'</option>';
         }
     }
+}
+
+// -------------- RESIZE FUNCTION -------------
+// Function for resizing any jpg, jpeg or png image files
+function candidate_img_resize($target, $newcopy, $w, $h, $ext) {
+    list($w_orig, $h_orig) = getimagesize($target);
+    $scale_ratio = $w_orig / $h_orig;
+    if (($w / $h) > $scale_ratio) { $w = $h * $scale_ratio; }
+    else { $h = $w / $scale_ratio; }
+    $img = "";
+    $ext = strtolower($ext);
+    if($ext =="png") { $img = imagecreatefrompng($target); }
+    else { $img = imagecreatefromjpeg($target); }
+    //imagecopyresampled($img, $img, 0, 0, 0, 0, $w, $h, $w_orig, $h_orig);
+    $tci = imagecreatetruecolor($w, $h);
+    imagecopyresampled($tci, $img, 0, 0, 0, 0, $w, $h, $w_orig, $h_orig);    
+    if($ext =="png") { imagepng($tci, $newcopy); }
+    else { imagejpeg($tci, $newcopy, 84); }
+}
+
+// ------------- THUMBNAIL (CROP) FUNCTION -------------
+// Function for creating a true thumbnail cropping from any jpg, gif, or png image files
+function candidate_img_thumb($target, $newcopy, $w, $h, $ext) {
+    list($w_orig, $h_orig) = getimagesize($target);
+    $src_x = ($w_orig / 2) - ($w / 2);
+    $src_y = ($h_orig / 2) - ($h / 2);
+    $ext = strtolower($ext);
+    $img = "";
+    if($ext =="png") { $img = imagecreatefrompng($target); }
+    else { $img = imagecreatefromjpeg($target); }
+    //imagecopyresampled($img, $img, 0, 0, $src_x, $src_y, $w, $h, $w, $h);
+    $tci = imagecreatetruecolor($w, $h);
+    imagecopyresampled($tci, $img, 0, 0, $src_x, $src_y, $w, $h, $w, $h);
+    if($ext =="png") { imagepng($tci, $newcopy); }
+    else { imagejpeg($tci, $newcopy, 84); }
+}
+
+// -------------- RESIZE FUNCTION -------------
+// Function for resizing any jpg, jpeg or png image files
+function recruiter_img_resize($target, $newcopy, $w, $h, $ext) {
+    list($w_orig, $h_orig) = getimagesize($target);
+    $scale_ratio = $w_orig / $h_orig;
+    if (($w / $h) > $scale_ratio) { $w = $h * $scale_ratio; }
+    else { $h = $w / $scale_ratio; }
+    $img = "";
+    $ext = strtolower($ext);
+    if($ext =="png") { $img = imagecreatefrompng($target); }
+    else { $img = imagecreatefromjpeg($target); }
+    imagecopyresampled($img, $img, 0, 0, 0, 0, $w, $h, $w_orig, $h_orig);
+    //$tci = imagecreatetruecolor($w, $h);
+    //imagecopyresampled($tci, $img, 0, 0, 0, 0, $w, $h, $w_orig, $h_orig);
+    //if($ext =="png") { imagepng($tci, $newcopy); }
+    //else { imagejpeg($tci, $newcopy, 84); }
 }
 
 if ( ! function_exists('validation_exist_error'))
