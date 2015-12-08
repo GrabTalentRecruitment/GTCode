@@ -50,7 +50,7 @@ class Signup extends CI_Controller {
                 $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
                 $template["header"] = $this->load->view('common/candidate/index_header', null, true);
                 $template["contents"] = $this->load->view('candidate/signup', $content, true);
-                $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+                $template["footer"] = $this->load->view('common/footer', null, true);
                 $this->load->view('common/candidate/layout', $template);
                 
             } else {
@@ -415,7 +415,7 @@ class Signup extends CI_Controller {
         $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
         $template["header"] = $this->load->view('common/candidate/index_header', null, true);
         $template["contents"] = $this->load->view('candidate/signup_splash', null, true);
-        $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/candidate/layout', $template);
 	}
     
@@ -430,7 +430,7 @@ class Signup extends CI_Controller {
         $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
         $template["header"] = $this->load->view('common/candidate/header', null, true);
         $template["contents"] = $this->load->view('candidate/signup_error', null, true);
-        $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/candidate/layout', $template);
 	}
     

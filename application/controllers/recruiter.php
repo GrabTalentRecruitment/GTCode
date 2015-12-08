@@ -90,7 +90,7 @@ class Recruiter extends CI_Controller {
         $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
         $template["header"] = $this->load->view('common/recruiter/index_header', null, true);
         $template["contents"] = $this->load->view('recruiter/resetpassword', null, true);
-        $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/recruiter/layout', $template);
     }
     
@@ -112,7 +112,7 @@ class Recruiter extends CI_Controller {
         $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
         $template["header"] = $this->load->view('common/recruiter/header', null, true);
         $template["contents"] = $this->load->view('recruiter/changepassword', null, true);
-        $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/recruiter/layout', $template);
     }
     
@@ -173,7 +173,7 @@ class Recruiter extends CI_Controller {
         $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
         $template["header"] = $this->load->view('common/recruiter/index_header', null, true);
         $template["contents"] = $this->load->view('recruiter/forgotpassword', null, true);
-        $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/recruiter/layout', $template);
     }
     
@@ -218,7 +218,7 @@ class Recruiter extends CI_Controller {
 	        $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
 	        $template["header"] = $this->load->view('common/recruiter/header', null, true);
 	        $template["contents"] = $this->load->view('recruiter/dashboard', null, true);
-		$template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+		$template["footer"] = $this->load->view('common/footer', null, true);
 	        $this->load->view('common/recruiter/layout', $template);
 	} else {
             redirect( https_url($curr_lang.'/recruiter') );
@@ -428,7 +428,7 @@ class Recruiter extends CI_Controller {
 	        $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
 	        $template["header"] = $this->load->view('common/recruiter/header', null, true);
 	        $template["contents"] = $this->load->view('recruiter/job', null, true);
-	        $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+	        $template["footer"] = $this->load->view('common/footer', null, true);
 	        $this->load->view('common/recruiter/layout', $template);
 	        
         } else {
@@ -457,7 +457,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/job_create', null, true);
-            $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
             
         } else {
@@ -487,7 +487,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/job_edit', null, true);
-            $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
             
         } else {
@@ -549,7 +549,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/applicant_tracking', null, true);
-            $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         
         } else {
@@ -610,7 +610,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/applicant_interview', null, true);
-            $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         
         } else {
@@ -690,7 +690,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/applicant_offer', null, true);
-            $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         
         } else {
@@ -766,7 +766,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/email_settings', null, true);
-            $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
     
         } else {
@@ -796,7 +796,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/offeremail_template', null, true);
-            $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         
         } else {
@@ -855,7 +855,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/interviewemail_template', null, true);
-            $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
     
         } else {
@@ -1084,7 +1084,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/calendar', $data, true);
-            $template["footer"] = $this->load->view('common/recruiter/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         } else {
             redirect( https_url($this->lang->lang().'/recruiter') );

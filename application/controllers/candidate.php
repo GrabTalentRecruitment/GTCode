@@ -109,7 +109,7 @@ class Candidate extends CI_Controller {
         $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
         $template["header"] = $this->load->view('common/candidate/index_header', null, true);
         $template["contents"] = $this->load->view('candidate/register', null, true);
-        $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/candidate/layout', $template);
         
     }
@@ -156,7 +156,7 @@ class Candidate extends CI_Controller {
             $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
             $template["header"] = $this->load->view('common/candidate/header', null, true);
             $template["contents"] = $this->load->view('candidate/jobs', null, true);
-            $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/candidate/layout', $template);
         } else {
             redirect(base_url('candidate'));
@@ -249,7 +249,7 @@ class Candidate extends CI_Controller {
             $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
             $template["header"] = $this->load->view('common/candidate/header', null, true);
             $template["contents"] = $this->load->view('candidate/profile', null, true);
-            $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/candidate/layout', $template);
         } else {
             redirect(base_url('candidate'));
@@ -299,7 +299,7 @@ class Candidate extends CI_Controller {
         $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
         $template["header"] = $this->load->view('common/candidate/header', null, true);
         $template["contents"] = $this->load->view('candidate/job', null, true);
-        $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/candidate/layout', $template);
     }
     
@@ -314,7 +314,7 @@ class Candidate extends CI_Controller {
         $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
         $template["header"] = $this->load->view('common/candidate/index_header', null, true);
         $template["contents"] = $this->load->view('candidate/forgotpassword', null, true);
-        $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/candidate/layout', $template);
     }
     
@@ -329,7 +329,7 @@ class Candidate extends CI_Controller {
         $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
         $template["header"] = $this->load->view('common/candidate/index_header', null, true);
         $template["contents"] = $this->load->view('candidate/resetpassword', null, true);
-        $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/candidate/layout', $template);
     }
     
@@ -344,7 +344,7 @@ class Candidate extends CI_Controller {
         $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
         $template["header"] = $this->load->view('common/candidate/header', null, true);
         $template["contents"] = $this->load->view('candidate/changepassword', null, true);
-        $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/candidate/layout', $template);
     }
     

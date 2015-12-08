@@ -48,7 +48,7 @@ class Candidate_dashboard extends CI_Controller {
             $template["head"] = $this->load->view('common/candidate/head', $head_params, true);
             $template["header"] = $this->load->view('common/candidate/header', null, true);
             $template["contents"] = $this->load->view('candidate/candidate_dashboard', null, true);
-            $template["footer"] = $this->load->view('common/candidate/footer', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/candidate/layout', $template);
         } else {
             redirect(base_url('candidate'));
