@@ -1,6 +1,8 @@
 $(function(){
     var jobRefId = $("#JobId").val();
-       
+    $("#btnHelpModal").on("click",function(){
+        $("#HelpModal").css("display","block");
+    })
     $('#candStepModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var candidaterefCode = button.attr('id');

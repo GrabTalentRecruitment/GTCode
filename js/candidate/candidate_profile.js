@@ -10,7 +10,8 @@ $(function() {
             a = $("#inputCandLastname").val(),
             n = $("#inputPhonenumber").val(),
             l = $("button#profile-updateBtn").text();
-        0 == $.trim(t).length || 0 == $.trim(a).length || 0 == $.trim(n).length ? ($("#getCode").html("Please fill all mandatory fields"), $("#getMsgModal").modal("show"), $("button#profile-updateBtn").html(l).removeAttr("disabled")) : ($("button#profile-updateBtn").html("<img src='/images/loading.gif' width='20px' height='20px'/>").attr("disabled", "disabled"), $.ajax({
+        0 == $.trim(t).length || 0 == $.trim(a).length || 0 == $.trim(n).length ? ($("#getCode").html("Please fill all mandatory fields"), $("#getMsgModal").modal("show"), $("button#profile-updateBtn").html(l).removeAttr("disabled")) : ($("button#profile-updateBtn").html("<img src='/images/loading.gif' width='20px' height='20px'/>").attr("disabled", "disabled"), 
+        $.ajax({
             type: "POST",
             url: $("#inputprofupdUrl").val(),
             data: $(this).serialize(),
@@ -73,6 +74,16 @@ $(function() {
         }, 3e3))
     }), $("#resumeuploadModal").on("hidden.bs.modal", function() {
         window.location.reload(!0)
+    }), $("#profileUpdbtn").on("click", function() {
+        $("#profilepicupldModal").css("display","block");
+    }), $("#resumeupload").on("click", function() {
+        $("#resumeuploadModal").css("display","block");
+    }), $("#resumeDownlod").on("click", function() {
+        $("#ResumedownloadModal").css("display","block");
+    }), $("#changeEmail").on("click", function() {
+        $("#changeEmailModal").css("display","block");
+    }), $("#div1_close, #div2_close, #div3_close, #div4_close").on("click", function() {
+        $("#profilepicupldModal").hide(); window.location.reload(true);
     }), $("#profilepicupldModal").on("hidden.bs.modal", function() {
         window.location.reload(!0)
     })

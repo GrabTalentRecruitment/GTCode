@@ -15,11 +15,11 @@ $(function() {
                 crossDomain: !0
             }).done(function(t) {
                 var a = t.split(";");
-                $("#getCode").html(a[1]), $("#getMsgModal").modal("show"), $("#button-submit-password").html(i).removeAttr("disabled"), setTimeout(function() {
+                $("#modal-window").css("display","block").find("#displayMsg").html(a[1]), $("#button-submit-password").html(i).removeAttr("disabled"), setTimeout(function() {
                     window.location = $("#inputcandidatebackUrl").val()
                 }, 2e3)
             }).fail(function() {
-                $("#getCode").html("Something went wrong, Please try again!."), $("#getMsgModal").modal("show"), $("#button-submit-password").html(i).removeAttr("disabled")
+                $("#modal-window").css("display","block").find("#displayMsg").html("Something went wrong, Please try again!."), $("#button-submit-password").html(i).removeAttr("disabled")
             }), $(this).trigger("reset"), t.preventDefault()
         } else alert("Passwords do not match, please try again")
     })

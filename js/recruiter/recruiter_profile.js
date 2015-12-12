@@ -1,1 +1,31 @@
-$(function(){$("button#profile-updateBtn").text();$("#inputPhonenumber").unbind("keyup change input paste").bind("keyup keypress change input paste",function(t){var e=$(this),a=e.val(),n=a.length,o=e.attr("maxlength");return n>o&&e.val(e.val().substring(0,o)),!(8!=t.which&&0!=t.which&&(t.which<48||t.which>57)&&46!=t.which)}),$("form").submit(function(t){var e=$("#inputprofupdurl").val();$("button#profile-updateBtn").html("<img src='/images/loading.gif' width='20px' height='20px'/>").attr("disabled","disabled"),$.ajax({type:"POST",url:e,data:$(this).serialize(),crossDomain:!0}).done(function(t){var e=t.split(";");$("#getCode").html("success"==e[0]?e[1]:e[1]),$("#getMsgModal").modal("show")}).fail(function(){$("#getCode").html("Something went wrong, Please try again!."),$("#getMsgModal").modal("show")}),t.preventDefault()}),$("#getMsgModal").on("hidden.bs.modal",function(){window.location.reload()}),$("button#password-btn-save").click(function(){var t=$("#inputchgpasswordurl").val(),e=$("input[name='candidate-profile-email']").val(),a=$("input[name='newPassword']").val(),n=$("input[name='confirmnewPassword']").val();return a!=n?($("#modal-error-msg").text("Passwords do not match, please try again!"),$("input[name^='new-password']").val(""),$("input[name^='new-confirm-password']").val(""),$("#modal-error-msg").delay(1e3).fadeOut("slow"),!1):($(this).html("<img src='/images/loading.gif' width='20px' height='20px'/>").attr("disabled","disabled"),$.ajax({type:"POST",url:t,data:{"employer-email":e,newpassword:a},crossDomain:!0}).done(function(t){"success"==t&&($("#modal-error-msg").html("Password has been changed successfully, you will be logged out shortly!!"),setTimeout(function(){window.location=$("#inputhomeurl").val()},1e3)),$(this).html($("button#password-btn-save").text()).removeAttr("disabled")}).fail(function(){$("#modal-error-msg").text("Something went wrong, Please try again!.")}),event.preventDefault(),void 0)})}),$("#profilepicupldModal").on("hidden.bs.modal", function() { window.location.reload(true); });
+$(function() {
+    $("button#profile-updateBtn").text();
+    $("#inputPhonenumber").unbind("keyup change input paste").bind("keyup keypress change input paste", function(t) {
+        var e = $(this),
+            a = e.val(),
+            n = a.length,
+            o = e.attr("maxlength");
+        return n > o && e.val(e.val().substring(0, o)), !(8 != t.which && 0 != t.which && (t.which < 48 || t.which > 57) && 46 != t.which)
+    }), $("form").submit(function(t) {
+        var e = $("#inputprofupdurl").val();
+        $("button#profile-updateBtn").html("<img src='/images/loading.gif' width='20px' height='20px'/>").attr("disabled", "disabled"), $.ajax({
+            type: "POST",
+            url: e,
+            data: $(this).serialize(),
+            crossDomain: !0
+        }).done(function(t) {
+            var e = t.split(";");
+            $("#success-alert").html("success" == e[0] ? e[1] : e[1])
+        }).fail(function() {
+            $("#failure-alert").html("Something went wrong, Please try again!.")
+        }), t.preventDefault()
+    }), $("#getMsgModal").on("hidden.bs.modal", function() {
+        window.location.reload(true);
+    }), $("#profileUpdbtn").on("click", function() {
+        $("#profilepicupldModal").css("display","block");
+    }), $("#div_close").on("click", function() {
+        $("#profilepicupldModal").hide(); window.location.reload(true);
+    }), $("#profilepicupldModal").on("hidden.bs.modal", function() { 
+        window.location.reload(true);
+    });
+});
