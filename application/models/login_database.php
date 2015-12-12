@@ -201,6 +201,15 @@ Class Login_Database extends CI_Model {
         foreach ($query->result_array() as $row) { return $row['candidate_ref_id']; }
     }
     
+    // Fetch Candidate Reference Id
+    public function fetch_cand_coderefId($data) {
+        
+        $condition = "candidate_ref_id =" . "'" . $data['candidate_refId'] . "'";
+        $this->db->select('candidate_coderefs_id')->from('candidate_signup')->where($condition);
+        $query = $this->db->get();
+        foreach ($query->result_array() as $row) { return $row['candidate_coderefs_id']; }
+    }
+    
     // Update Candidate Stage
     public function candidate_UpdapplnStage($data, $stageName) {
           

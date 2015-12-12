@@ -46,7 +46,8 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/head', $head_params, true);
         $template["header"] = $this->load->view('common/header', null, true);
         $template["contents"] = $this->load->view('site_admin/index', null, true);
-        $this->load->view('common/layout', $template);
+        $template["footer"] = $this->load->view('common/footer', null, true);
+        $this->load->view('common/site_admin/layout', $template);
 	}
         
     // Check for employer login process
@@ -79,6 +80,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/dashboard', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
         	   
 	}
@@ -95,6 +97,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/employer_list', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
     }
     
@@ -109,6 +112,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/employers', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
     }    
     
@@ -124,6 +128,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/candidate_list', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
     }
     
@@ -138,6 +143,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/candidates', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
     }    
     
@@ -153,6 +159,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/jobs_list', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
     }
     
@@ -171,6 +178,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/job', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
     }
         
@@ -186,6 +194,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/users', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
 	}
     
@@ -201,6 +210,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/menu_settings', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
 	}
     
@@ -244,6 +254,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/dropdown_settings', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
 	}
     
@@ -258,6 +269,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/dropdown_itemchange', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
 	}
     
@@ -272,6 +284,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/dropdown_itemadd', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
 	}
     
@@ -315,6 +328,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/site_errors', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
 	}
     
@@ -454,6 +468,7 @@ class Site_admin extends CI_Controller {
         $template["head"] = $this->load->view('common/site_admin/head', $head_params, true);
         $template["header"] = $this->load->view('common/site_admin/header', null, true);
         $template["contents"] = $this->load->view('site_admin/employer_profile', null, true);
+        $template["footer"] = $this->load->view('common/footer', null, true);
         $this->load->view('common/site_admin/layout', $template);
     }
     

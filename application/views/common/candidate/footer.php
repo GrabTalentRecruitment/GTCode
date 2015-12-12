@@ -2,11 +2,11 @@
 	<div class="container">
 		<div class="col-md-8">
 			<p>Copyright &copy; <?php echo date('Y'); ?> - Grab Talent
-			 &nbsp;&nbsp;|&nbsp;&nbsp; <a href="<?php echo http_url($this->lang->lang().'/PrivacyPolicy');  ?>"> Privacy Policy</a> 
-			 &nbsp;&nbsp;|&nbsp;&nbsp; <a href="<?php echo http_url($this->lang->lang().'/Terms');          ?>"> Terms of Service</a>
-			 &nbsp;&nbsp;|&nbsp;&nbsp; <a href="<?php echo http_url($this->lang->lang().'/FAQApplicant');   ?>"> FAQ Applicant</a>
-             &nbsp;&nbsp;|&nbsp;&nbsp; <a href="<?php echo http_url($this->lang->lang().'/FAQClient');      ?>"> FAQ Client</a> 
-            </p>
+			&nbsp;&nbsp;|&nbsp;&nbsp;<a href="privacy-policy.php" >Privacy Policy</a>
+			&nbsp;&nbsp;|&nbsp;&nbsp;<a href="terms-of-service.php" >Terms of Service</a>
+		        <!--&nbsp;&nbsp;|&nbsp;&nbsp; <a href="<?php echo http_url($this->lang->lang().'/FAQApplicant'); ?>" </a> A -->
+			<!--&nbsp;&nbsp;|&nbsp;&nbsp; <a href="<?php echo http_url($this->lang->lang().'/FAQClient'); ?>" </a> B -->
+			</p>
 		</div>
 		<div class="col-md-4 footer-social">
 			<a href="https://www.facebook.com/grabtalent2015" target="_blank">

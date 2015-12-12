@@ -1,14 +1,20 @@
-<div class="site-wrapper vert-offset-top-3">
-    <div class="container-fluid">
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    <?= lang('siteadminhome.welcomeheader'); ?>
-                </h1>
-            </div>
-        </div>
-        <div class="row">
+<?php $recruiterEmail = $this->session->userdata('recruiter_login');
+$recInfo = $this->login_database->get_employer_information($recruiterEmail);
+$jobs = $this->login_database->job_dashboard( $this->session->userdata('recruiter_login') ); ?>
+
+<div class="site-content" >
+
+	<div class="container page-header">
+		<div class="row">
+			<div class="col-md-6 no-padding">
+				<h1 class="page-title font-1"><?php echo lang('siteadminhome.welcomeheader')." ".$recInfo[0]['employer_contact_firstname']." ".$recInfo[0]['employer_contact_lastname']; ?> </h1>
+			</div>
+			<div class="col-md-6 no-padding"></div>
+		</div>
+	</div>
+    
+    <div class="page-content container">
+		<div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -99,39 +105,9 @@
                 </div>
             </div>
         </div>
-        <!-- /.row -->
+        
         <div class="row">
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i><?= lang('siteadminhome.panel1'); ?></h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item">
-                                <span class="badge">just now</span>
-                                <i class="fa fa-fw fa-calendar"></i> Calendar updated
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <span class="badge">4 minutes ago</span>
-                                <i class="fa fa-fw fa-comment"></i> Commented on a post
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <span class="badge">2 hours ago</span>
-                                <i class="fa fa-fw fa-check"></i> Completed task: "pick up dry cleaning"
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <span class="badge">yesterday</span>
-                                <i class="fa fa-fw fa-globe"></i> Saved the world
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <span class="badge">two days ago</span>
-                                <i class="fa fa-fw fa-check"></i> Completed task: "fix error on sales page"
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -142,7 +118,7 @@
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Candidate Id.</th>
+                                        <th>Candidate Name.</th>
                                         <th>From Stage</th>
                                         <th>To Stage</th>
                                         <th>Changed on</th>
@@ -153,7 +129,8 @@
                                         $query = $this->db->query('SELECT candidate_coderefs_id, candidate_appln_prevstage, candidate_appln_nextstage, candidate_appln_change_date FROM candidate_application_history ORDER BY candidate_appln_change_date DESC LIMIT 5');
                                         foreach ($query->result() as $row) {
                                             echo "<tr>";
-                                            echo "<td>".$row->candidate_coderefs_id."</td>";
+                                            $candInfo = $this->login_database->read_candidate_information($row->candidate_coderefs_id);
+                                            echo "<td>".$candInfo[0]['candidate_firstname']." ".$candInfo[0]['candidate_lastname']."</td>";
                                             echo "<td>".$row->candidate_appln_prevstage."</td>";
                                             echo "<td>".$row->candidate_appln_nextstage."</td>";
                                             echo "<td>".date("d-M-Y h:m:s",strtotime($row->candidate_appln_change_date))."</td>";
@@ -167,6 +144,6 @@
                 </div>
             </div>
         </div>
-        <!-- /.row -->
+        
     </div>
-</div>
+</div><br />

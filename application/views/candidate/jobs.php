@@ -1,16 +1,14 @@
 <script type="text/javascript" src="/js/candidate/candidate_jobs.js" defer="true"></script>
+<input type="hidden" id="candJobapplyURL" value="<?php echo https_url($this->lang->lang().'/candidate/registercandidate_application');?>" />
+<input type="hidden" id="candcodeRefId" value="<?php echo $this->session->userdata('user_data')[0]['candidate_coderefs_id'] ?>" />
+<input type="hidden" id="appliedLbl" value="<?=lang('candidateJobs.btnlbl2');?>" />
 <div class="site-content" >
-	<input type="hidden" id="candJobapplyURL" value="<?php echo https_url($this->lang->lang().'/candidate/registercandidate_application');?>" />
-        <input type="hidden" id="candcodeRefId" value="<?php echo $this->session->userdata('user_data')[0]['candidate_coderefs_id'] ?>" />
-        <input type="hidden" id="appliedLbl" value="<?=lang('candidateJobs.btnlbl2');?>" />
 	<div class="container page-header">
 		<div class="row">
 			<div class="col-md-6 no-padding">
 				<h1 class="page-title font-1"><?=lang('candidateJobs.heading');?></h1>
 			</div>
-			<div class="col-md-6 no-padding">
-				
-			</div>
+			<div class="col-md-6 no-padding"></div>
 		</div>
 	</div>
 	
@@ -19,69 +17,61 @@
 		<div class="row candidate-attribute">
 			<div class="col-md-12 ">
 				<?php 
-	                        //print_r($this->session->all_userdata());
-	                        $cand_Skill = '';
-	                        $candsklsArr = $jobsArr = $jobs = array();
-	                        
-	                        $candRefId = $this->session->userdata('user_data')[0]['candidate_coderefs_id'];
-	                        
-	                        // Get candidate skills from DB
-	                        $candSkillscondition = "candidate_coderefs_id ='".$candRefId."'";
-	                        $this->db->select('candidate_skills')->from('candidate_signup')->where($candSkillscondition);
-	                        $candSklsquery = $this->db->get();
-	                        $candSkllsArr = $candSklsquery->result_array();
-	                        foreach ($candSkllsArr as $key=>$candSkills) {
-	                        	$cand_Skill = $candSkills['candidate_skills'];
-	                        }
-	                        
-	                        // To fetch job & its mandatory skills into an array.
-	                        $jobmandsklsArr = array();
-	                        $onlypostedjob = "job_posted ='on'";
-	                        $this->db->select('job_mandatory_skills, job_number')->from('jobs')->where($onlypostedjob);
-	                        $query = $this->db->get();
-	                        foreach($query->result_array() as $jobArr){
-	                            $jobskillsplit = explode(",", strtolower($jobArr['job_mandatory_skills']));
-	                            $jobmandsklsArr[$jobArr['job_number']] = $jobskillsplit;
-	                        }
-	                        
-	                        if( !empty( $cand_Skill ) ) {
-	                            if(strpos($cand_Skill,';') !== false) {
-	                                $candskillsArr = explode(";", $cand_Skill);
-	                                foreach($candskillsArr as $skll){
-	                                    $candskls = explode(",", $skll);                                   
-	                                    array_push($candsklsArr, $candskls[0]);
-	                                }
-	                                foreach($candsklsArr as $candidskill){
-	
-	                                    $candidskill = strtolower($candidskill);
-	                                    foreach($jobmandsklsArr as $key=>$value){
-	                                        
-	                                        $findValue = array_search( $candidskill, $value);
-	                                        if(strlen($findValue) > 0 ) {
-	                                            array_push($jobsArr,$key);
-	                                        }
-	                                    }
-	                                }    
-	                                $jobNumuniqueArr = array_unique($jobsArr);
-	                                foreach($jobNumuniqueArr as $jobNumber){
-	                                    $jobsData = $this->login_database->read_job_information($jobNumber);
-	                                    foreach($jobsData as $jobsfieldData) {
-	                                        array_push($jobs, $jobsfieldData);
-	                                    }
-	                                }
-	                            } else {
-	                                $jobs = '';
-	                            }
-	                        } else {
-	                            $jobs = '';
-	                        }
-	                        //var_dump($this->db->last_query());
-	                        $sess_array = $this->session->userdata('user_data');
-	                        $resume = '';                        
-	                        foreach($sess_array as $usrDt){
-	                            $resume = $usrDt['resume_url'];
-	                        }
-	                    ?>
+                    //print_r($this->session->all_userdata());
+                    $candsklsArr = $jobsArr = $jobs = $cand_Skill = array();
+                    
+                    $candRefId = $this->session->userdata('user_data')[0]['candidate_ref_id'];
+                    
+                    // Get candidate skills from DB
+                    $candSkillscondition = "candidate_ref_id ='".$candRefId."'";
+                    $this->db->select('*')->from('candidate_skills')->where($candSkillscondition);
+                    $candSklsquery = $this->db->get();
+                    $candSkllsArr = $candSklsquery->result_array();
+                    foreach ($candSkllsArr as $key=>$candSkills) {
+                        array_push($cand_Skill, $candSkills['candidate_skill_name'] );
+                    }
+                    
+                    // To fetch job & its mandatory skills into an array.
+                    $jobmandsklsArr = array();
+                    $onlypostedjob = "job_posted ='on'";
+                    $this->db->select('job_mandatory_skills, job_number')->from('jobs')->where($onlypostedjob);
+                    $query = $this->db->get();
+                    foreach($query->result_array() as $jobArr){
+                        $jobskillsplit = explode(",", strtolower($jobArr['job_mandatory_skills']));
+                        $jobmandsklsArr[$jobArr['job_number']] = preg_replace('/\s+/', '', $jobskillsplit);
+                    }
+                    if( !empty( $cand_Skill ) ) {
+                        
+                        foreach($cand_Skill as $candsKlvalue) {
+                            
+                            foreach($jobmandsklsArr as $key=>$value) {
+                            
+                                $findValue = array_search( $candsKlvalue, $value);
+                                if(strlen($findValue) > 0 ) {
+                                    array_push($jobsArr,$key);
+                                }
+                                
+                            }
+                            
+                        }
+                                                
+                        $jobNumuniqueArr = array_unique($jobsArr);
+                        foreach($jobNumuniqueArr as $jobNumber){
+                            $jobsData = $this->login_database->read_job_information($jobNumber);
+                            foreach($jobsData as $jobsfieldData) {
+                                array_push($jobs, $jobsfieldData);
+                            }
+                        }
+                    } else {
+                        $jobs = '';
+                    }
+                    
+                    $sess_array = $this->session->userdata('user_data');
+                    $resume = '';                        
+                    foreach($sess_array as $usrDt){
+                        $resume = $usrDt['resume_url'];
+                    }
+                ?>
 				<table>
 					<tr>
                         <th><?=lang('candidateJobs.hometablecol1');?></th>

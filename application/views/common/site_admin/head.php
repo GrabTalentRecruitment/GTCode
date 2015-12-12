@@ -10,14 +10,18 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <link rel="icon" href="/images/favicon.ico"/>
-    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/css/site-admin.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site-admin.css" />
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/responsive.css"/>
     <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css"/>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <script src="/js/jquery-1.11.2.min.js"></script>
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/site_admin/jquery.floatThead.min.js"></script>
+    <script src="/js/self.js" type="text/javascript"></script>
+    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

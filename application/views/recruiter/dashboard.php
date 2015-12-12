@@ -1,15 +1,14 @@
 <?php $recruiterEmail = $this->session->userdata('recruiter_login');
- $jobs = $this->login_database->job_dashboard( $this->session->userdata('recruiter_login') ); ?>
+$recInfo = $this->login_database->get_employer_information($recruiterEmail);
+$jobs = $this->login_database->job_dashboard( $this->session->userdata('recruiter_login') ); ?>
 <div class="site-content" >
 
 	<div class="container page-header">
 		<div class="row">
 			<div class="col-md-6 no-padding">
-				<h1 class="page-title font-1"><?php echo lang('recruiterlogin.Welcometxt'); ?>, </h1>
+				<h1 class="page-title font-1"><?php echo lang('recruiterlogin.Welcometxt')." ".$recInfo[0]['employer_contact_firstname']." ".$recInfo[0]['employer_contact_lastname']; ?> </h1>
 			</div>
-			<div class="col-md-6 no-padding">
-				
-			</div>
+			<div class="col-md-6 no-padding"></div>
 		</div>
 	</div>
 	
@@ -53,30 +52,29 @@
 			
 			<div class="col-md-6">
 				<table class="job-posting-listing">
-				<?php if($jobs){ ?>
-					<tr>
-	                                        <th><?=lang('recruiterlogin.hometablecol2');?></th>
-	                                        <th><?=lang('recruiterlogin.hometablecol4');?></th>
-	                                        <th>Action</th>
-	                                </tr>
-					<?php foreach($jobs as $job) { ?>
-                                        <tr>
-                                            <td class="job-title"><a href="<?php echo https_url($this->lang->lang().'/recruiter/job/'.$job['job_number']); ?>"><?php if( strlen(htmlspecialchars($job['job_title'])) > 50 ) { echo substr_replace(htmlspecialchars($job['job_title']), '...', 40);} else { echo htmlspecialchars($job['job_title']); }?></a></td>
-                                            <td><?php echo htmlspecialchars($job['job_primaryworklocation_city'].', '.$job['job_primaryworklocation_country'])?></td>
-                                            <td>
-                                            <?php if($job['job_posted'] == 'off'){ ?>
-                                                <!--<a class="btn btn-danger btn-xs" href="<?php //echo https_url($this->lang->lang().'/recruiter/job_edit/'.$job['job_number']); ?>">Edit &amp; Publish</a>-->
-                                                <span class="label label-danger">DRAFT</span>
-                                            <?php } ?>                                                
-                                            </td>
-                                        </tr>
-				<?php } 
-				}  else { ?>
-					<tr>
-		                            <td colspan="6"><center><?=lang('recruiterlogin.homenojobslbl');?></center></td>
-		                        </tr>
-				<?php } ?>
-	                    </table>
+    				<?php if($jobs){ ?>
+                        <tr>
+                            <th><?=lang('recruiterlogin.hometablecol2');?></th>
+                            <th><?=lang('recruiterlogin.hometablecol4');?></th>
+                            <th>Action</th>
+                        </tr>
+    					<?php foreach($jobs as $job) { ?>
+                        <tr>
+                            <td class="job-title"><a href="<?php echo https_url($this->lang->lang().'/recruiter/job/'.$job['job_number']); ?>"><?php if( strlen(htmlspecialchars($job['job_title'])) > 50 ) { echo substr_replace(htmlspecialchars($job['job_title']), '...', 40);} else { echo htmlspecialchars($job['job_title']); }?></a></td>
+                            <td><?php echo htmlspecialchars($job['job_primaryworklocation_city'].', '.$job['job_primaryworklocation_country'])?></td>
+                            <td>
+                                <?php if($job['job_posted'] == 'off'){ ?>
+                                    <span class="label label-danger">DRAFT</span>
+                                <?php } ?>
+                            </td>
+                        </tr>
+    				<?php } 
+    				}  else { ?>
+                        <tr>
+                            <td colspan="6"><center><?=lang('recruiterlogin.homenojobslbl');?></center></td>
+                        </tr>
+    				<?php } ?>
+                </table>
 			</div>
 		</div>
 	

@@ -2,26 +2,45 @@
 <script src="/js/bootstrap/bootstrap-wysiwyg.js" defer="true"></script>
 <script src="/js/bootstrap/jquery.hotkeys.js" defer="true"></script>
 <script src="/js/bootstrap/google-code-prettify.js" defer="true"></script>
-<div class="visible-xs vert-offset-top-5"></div>
-<div class="visible-sm vert-offset-top-8"></div>
-<div class="visible-lg visible-md hidden-xs vert-offset-top-5"></div>
-<div class="site-wrapper">
-    <div class="site-wrapper-inner">
-        <div class="container">
-            <div class="alert alert-success" id="modal-error-msg" role="alert" style="display: none;"></div>
-            <div class="row">                    
-                <h3><b><img src="/images/icons/profile.png" alt="" title="" height="50px" /><?=lang('recruiterlogin.emailtemplate_1hdng');?></b></h3>
-                <p><?=lang('recruiterlogin.emailtemplate_1hdng_1');?></p>
-	            <ol>
-	                <li>{candidate_name} - Candidate Name</li>
-	                <li>{job_title} - Job Title</li>
-                    <li>{interview_datetime} - Interview Details</li>
-                    <li>{interview_location} - Interview Location</li>
-	                <li>{employer_name} - Employer Name</li>
-	                <li>{employer_email} - Employer Email Address</li>
-	            </ol>
-            </div>
+
+<!-- Alert message - start -->
+<div class="page-content container" id="modal-window" style="display:none; background-color:white; margin-top:5px; border-radius:10px; height:15px;">
+	<div class="modal-dialog modal-md">
+		<div class="modal-header">
+                        <h4 class="modal-title" id="displayMsg"></h4>
+                </div>
+	</div>
+</div>
+<!-- Alert message - end -->
+        
+<div class="container page-header">
+    <div class="row">
+        <div class="col-md-6 no-padding">
+            <h1 class="page-title font-1"><?=lang('recruiterlogin.emailtemplate_1hdng');?></h1>
+        </div>
+        <div class="col-md-6 no-padding"></div>
+    </div>
+</div>
+
+<div class="page-content container">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <p><?=lang('recruiterlogin.emailtemplate_1hdng_1');?></p>
+            <ol>
+		<li>{candidate_name} - Candidate Name</li>
+		<li>{job_title} - Job Title</li>
+		<li>{interview_datetime} - Interview Details</li>
+		<li>{interview_location} - Interview Location</li>
+		<li>{employer_name} - Employer Name</li>
+		<li>{employer_email} - Employer Email Address</li>
+            </ol>
+        </div>
+    
+        <div class="col-md-12">
+        
             <form enctype="multipart/form-data">
+            
                 <input type="hidden" id="inputintvwEmailUpdUrl" value="<?php echo https_url($intvwtmplupd_url); ?>" />
                 <?php
                     $empDet = $this->login_database->read_user_information( 
@@ -33,9 +52,7 @@
                 <input type="hidden" id="inputintvwEmailCtnctName" value="<?php echo $empDet[0]['employer_name']; ?>" />
                 <?php
                     $condition = "employer_contact_email ='".$this->session->userdata('recruiter_login')."'";
-                    $this->db->select('template_interview');
-                    $this->db->from('grabtalent_template');
-                    $this->db->where($condition);
+                    $this->db->select('template_interview')->from('grabtalent_template')->where($condition);
                     $query = $this->db->get();
                     $tmplintvw = $query->result_array(); 
                     if($tmplintvw) {
@@ -62,8 +79,8 @@
                 </div><br />
                 <div class="row">
                     <div class="col-lg-12 col-md-12" style="text-align: center;">
-                        <button class="btn btn-primary" type="button" id="btnSaveoffrtmplate">Save</button>
-                        <button class="btn btn-danger" type="button" onclick="window.location.reload()">Reset</button>
+                        <button class="button" type="button" id="btnSaveIntvwtmplate">Save</button>
+                        <button class="button" type="button" onclick="window.location.reload()">Reset</button>
                     </div>
                 </div>
                 <?php } ?>
@@ -92,22 +109,25 @@
                                 </div><br />
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12" style="text-align: center;">
-                                        <button class="btn btn-primary" type="button" id="btnCreateoffrtmplate">Create</button>
-                                        <button class="btn btn-danger" type="button" onclick="window.location.reload()">Reset</button>
+                                        <button class="button" type="button" id="btnCreateIntvwtmplate">Create</button>
+                                        <button class="button" type="button" onclick="window.location.reload()">Reset</button>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>                
                     </div>
                 </div>
+                
             </form>
-        </div>        
+            
+        </div>
     </div>
-</div>
+
+</div><br/><br/>
 <script type="text/javascript">
 $(function(){
     $("#editor").wysiwyg();
-    $("#btnSaveoffrtmplate").on('click',function(){
+    $("#btnSaveIntvwtmplate").on('click',function(){
         
         $.ajax({
             type        : 'POST',
@@ -117,17 +137,16 @@ $(function(){
         })
         .done(function(data) {
             var response = data.split(';');
-            $("#modal-error-msg").css("display","block").html(response[1]).delay(1000).fadeOut('slow');
+            $("#modal-window").css("display","block").find("#displayMsg").html(response[1]).delay(1000).fadeOut('slow');
             setTimeout(function() { window.location.reload(true); }, 2000 );
         })
         .fail(function(data) {
-            $("#getCode").html("Something went wrong, Please try again!.");
-            $("#getMsgModal").modal('show');
+            $("#modal-window").css("display","block").find("#displayMsg").html("Something went wrong, Please try again!.");
         });
         
     });
     
-    $("#btnCreateoffrtmplate").on('click',function(){
+    $("#btnCreateIntvwtmplate").on('click',function(){
         
         $.ajax({
             type        : 'POST',
@@ -137,12 +156,11 @@ $(function(){
         })
         .done(function(data) {
             var response = data.split(';');
-            $("#modal-error-msg").css("display","block").html(response[1]).delay(1000).fadeOut('slow');
+            $("#modal-window").css("display","block").find("#displayMsg").html(response[1]).delay(1000).fadeOut('slow');
             setTimeout(function() { window.location.reload(true); }, 2000 );
         })
         .fail(function(data) {
-            $("#getCode").html("Something went wrong, Please try again!.");
-            $("#getMsgModal").modal('show');
+            $("#modal-window").css("display","block").find("#displayMsg").html("Something went wrong, Please try again!.");
         });
         
     });

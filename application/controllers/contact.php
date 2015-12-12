@@ -45,7 +45,7 @@ EOF;
         $this->email->subject($subject);
         $this->email->message($message);
         if($this->email->send()) {
-            echo "Thank you for your interest in Grab Talent";
+            echo "success; Thank you for your interest in Grab Talent";
         } else {
             echo "failure; Your email was not sent, please try again.";
         }

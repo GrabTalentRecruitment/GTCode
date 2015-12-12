@@ -7,8 +7,8 @@
 			<div class="col-md-8">
 				<ul class="site-menu alignright">
                     <?php
-                            if( ($this->uri->segment(2) == 'dashboard') ) {
-                                echo '<li class="active"><a href="'.https_url("/".$this->lang->lang()."/recruiter/dashboard").'">'.lang('recruiterlogin.calendartxt').'</a></li>';                                
+                            if( ($this->uri->segment(3) == 'dashboard') ) {
+                                echo '<li class="current-menu-item"><a href="'.https_url("/".$this->lang->lang()."/recruiter/dashboard").'">'.lang('recruiterlogin.calendartxt').'</a></li>';                                
                             } else {
                                 echo '<li><a href="'.https_url("/".$this->lang->lang()."/recruiter/dashboard").'">'.lang('recruiterlogin.calendartxt').'</a></li>';                                
                             }
@@ -44,9 +44,9 @@
                                     echo '<li><a href="'.https_url("/".$this->lang->lang()."/recruiter/email_settings").'">'.lang('recruiterlogin.emailtemplate').'</a></li>';
                                 };
                                 if( $this->uri->segment(3) == 'changepassword'){
-                                    echo '<li class="current-menu-item"><a href="'.https_url("/".$this->lang->lang()."/recruiter/changepassword").'">Change Password</a></li>';
+                                    echo '<li class="current-menu-item"><a href="'.https_url("/".$this->lang->lang()."/recruiter/changepassword").'">'.lang('recruiterhome.labelresetpasswd').'</a></li>';
                                 } else {
-                                    echo '<li><a href="'.https_url("/".$this->lang->lang()."/recruiter/changepassword").'">Change Password</a></li>';
+                                    echo '<li><a href="'.https_url("/".$this->lang->lang()."/recruiter/changepassword").'">'.lang('recruiterhome.labelresetpasswd').'</a></li>';
                                 };
                                 
                                 echo '</ul>';

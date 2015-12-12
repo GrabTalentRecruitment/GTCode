@@ -268,6 +268,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/candidate_list', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         } else {
             redirect( https_url($this->lang->lang().'/recruiter') );
@@ -292,6 +293,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/applicant_job_view', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         } else {
             redirect( https_url($this->lang->lang().'/recruiter') );
@@ -316,6 +318,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/applicant_view', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         } else {
             redirect( https_url($this->lang->lang().'/recruiter') );
@@ -352,6 +355,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/candidate', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         } else {
             redirect( https_url($this->lang->lang().'/recruiter') );
@@ -376,6 +380,7 @@ class Recruiter extends CI_Controller {
             $template["head"] = $this->load->view('common/recruiter/head', $head_params, true);
             $template["header"] = $this->load->view('common/recruiter/header', null, true);
             $template["contents"] = $this->load->view('recruiter/profile', null, true);
+            $template["footer"] = $this->load->view('common/footer', null, true);
             $this->load->view('common/recruiter/layout', $template);
         } else {
             redirect( https_url($this->lang->lang().'/recruiter') );
@@ -1040,20 +1045,20 @@ class Recruiter extends CI_Controller {
         $this->db->where('job_number', $this->input->post('inputJobNumber'));
         $this->db->update('jobs', $data);
         if($this->db->trans_status() == '1') {
+            
             // Step-1: To delete the whole list of the Skill that were already added.
             $skillpostVal = explode(",", $this->input->post('inputJobMandatorySkl') );
-	    foreach( $skillpostVal as $oldskillVal) {
-            	$this->db->where('job_ref_id', $this->input->post('inputJobNumber'));
-            	$this->db->delete('job_skills');
-	    }
+            foreach( $skillpostVal as $oldskillVal) {
+                $this->db->where('job_ref_id', $this->input->post('inputJobNumber'));
+                $this->db->delete('job_skills');
+            }
 	    
-	    // Step-2: To add back all the items in the text-field.
-	    $newskillpostVal = explode(",", $this->input->post('inputJobMandatorySkl') );
-	    foreach( $newskillpostVal as $newskillVal) {
-	    	$newskilladddata = array( 'job_ref_id' => $this->input->post('inputJobNumber'), 'job_skill_name' => $newskillVal, 'job_skill_created_date' => date('Y-m-d h:m:s') );
-	    	
-	    	$this->db->insert('job_skills', $newskilladddata); 
-	    }
+            // Step-2: To add back all the items in the text-field.
+            $newskillpostVal = explode(",", $this->input->post('inputJobMandatorySkl') );
+            foreach( $newskillpostVal as $newskillVal) {
+                $newskilladddata = array( 'job_ref_id' => $this->input->post('inputJobNumber'), 'job_skill_name' => $newskillVal, 'job_skill_created_date' => date('Y-m-d h:m:s') );
+                $this->db->insert('job_skills', $newskilladddata); 
+            }
             echo "success:".https_url($this->lang->lang().'/recruiter/job/'.$this->input->post('inputJobNumber')).";Your Job was updated successfully!";
         } else {
             echo "failure;Your Job was not updated, please try again!";

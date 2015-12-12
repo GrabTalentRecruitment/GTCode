@@ -1,60 +1,58 @@
 <?php $tblName = $this->uri->segment(4); $menudelete_URL = $this->lang->lang().'/site_admin/dropdown_deltblItem'; ?>
 <script src="/js/site_admin/siteAdmin_dropdownchange.js" type="text/javascript"></script>
 <input type="hidden" id="menuDropdowndelURL" value="<?php echo https_url($menudelete_URL); ?>" />
-<div class="visible-xs vert-offset-top-5"></div>
-<div class="visible-sm vert-offset-top-8"></div>
-<div class="visible-lg visible-md hidden-xs vert-offset-top-5"></div>
-<div class="site-wrapper">
-    <div class="site-wrapper-inner">
-        <div class="container-fluid">
-            <ol class="breadcrumb">
-                <li><a href="<?php echo https_url($this->lang->lang().'/site_admin/dashboard')?>"><?=lang('home.index')?></a></li>
-                <li><a href="<?php echo https_url($this->lang->lang().'/site_admin/dropdown_settings')?>"><?=lang('siteadminusers.settingslabel3');?></a></li>
-            </ol>
-            <h2><img src="/images/icons/settings.png" alt="Drop-down items icon"/>Edit <?php echo $tblName; ?></h2>
+<div class="site-content" >
+
+	<div class="container page-header">
+		<div class="row">
+			<div class="col-md-6 no-padding">
+				<h1 class="page-title font-1">Edit <?php echo $tblName; ?></h1>
+			</div>
+			<div class="col-md-6 no-padding">
+				<div class="subpage-breadcrumbs">
+					<a href="<?php echo https_url($this->lang->lang().'/site_admin/dashboard')?>"><?=lang('home.index')?></a>&nbsp;/&nbsp;<a href="<?php echo https_url($this->lang->lang().'/site_admin/dropdown_settings')?>"><?=lang('siteadminusers.settingslabel3');?></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="page-content container">
+        
+        <div class="row">
             <a href="<?php echo https_url($this->lang->lang().'/site_admin/dropdown_itemadd/'.$tblName)?>" class="btn btn-primary">Add New</a><br /><br />
-            <!-- To display in Large Desktop mode - Start -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-primary">
-        				<div class="table-responsive">
-        					<table class="table table-striped">
-        						<thead>
-        							<tr>
-                                        <?php
-                                            $columnarr = [];
-                                            $query = $this->db->query('DESC '.$tblName);
-                                            if($query->num_rows() > 0) {
-                                                foreach ($query->result_array() as $candids) {
-                                                    echo "<th>".$candids['Field']."</th>";
-                                                    array_push($columnarr,$candids['Field']);
-                                                }
-                                            }
-                                        ?>
-        							</tr>
-        						</thead>
-                                <tbody>
-                                    <?php 
-                                    $rowhdr='';
-                                    $comma_separated = implode(",", $columnarr);                                    
-                                    $tblcolquery = $this->db->query('SELECT '.$comma_separated.' FROM '.$tblName);
-                                    foreach ($tblcolquery->result_array() as $tbcolVal) {
-                                        echo "<tr>";
-                                        foreach ($columnarr as $key=>$value) { 
-                                            echo "<td>".$tbcolVal[$value]."</td>";
-                                            $rowhdr = $value.",".$tbcolVal[$value];
-                                        }
-                                        echo "<td><button class='btn btn-warning btn-xs' data-whatever=".$rowhdr.",".$tblName." data-title='Edit' data-toggle='modal' data-target='#deldropdownItemModal'><span class='fa fa-eraser'></span></button></td>";
-                                        echo "</tr>";
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- To display in Large Desktop mode - End -->
+            
+            <table class="table table-striped">
+				<thead>
+					<tr>
+                        <?php
+                            $columnarr = [];
+                            $query = $this->db->query('DESC '.$tblName);
+                            if($query->num_rows() > 0) {
+                                foreach ($query->result_array() as $candids) {
+                                    echo "<th>".$candids['Field']."</th>";
+                                    array_push($columnarr,$candids['Field']);
+                                }
+                            }
+                        ?>
+					</tr>
+				</thead>
+                <tbody>
+                    <?php 
+                    $rowhdr='';
+                    $comma_separated = implode(",", $columnarr);                                    
+                    $tblcolquery = $this->db->query('SELECT '.$comma_separated.' FROM '.$tblName);
+                    foreach ($tblcolquery->result_array() as $tbcolVal) {
+                        echo "<tr>";
+                        foreach ($columnarr as $key=>$value) { 
+                            echo "<td>".$tbcolVal[$value]."</td>";
+                            $rowhdr = $value.",".$tbcolVal[$value];
+                        }
+                        echo "<td><button class='btn btn-warning btn-xs' data-whatever=".$rowhdr.",".$tblName." data-title='Edit' data-toggle='modal' data-target='#deldropdownItemModal'><span class='fa fa-eraser'></span></button></td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

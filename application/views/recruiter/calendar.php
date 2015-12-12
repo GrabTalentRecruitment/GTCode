@@ -19,25 +19,25 @@
     .content { font-size: 10px; }
     .badge { white-space: normal !important; font-size:20px; }
 </style>
-<div class="visible-xs vert-offset-top-5"></div>
-<div class="visible-sm vert-offset-top-8"></div>
-<div class="visible-lg visible-md hidden-xs vert-offset-top-5"></div>
-<div class="site-wrapper">
-    <div class="site-wrapper-inner">
-        <div class="container">
-            <br />
-            <div class="row">
-                <div class="col-lg-12 text-right">
-                    <a href="<?php echo https_url($this->lang->lang().'/recruiter/export_calendar'); ?>" target="_blank">Export as CSV</a>
-                </div>
+<div class="site-content" >
+    <div class="container page-header">
+        <div class="row">
+            <div class="col-md-6 no-padding">
+                <h1 class="page-title font-1">Calendar</h1>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <?php echo $calendar; ?>
-                    </div>
-                </div>
+            <div class="col-md-6 no-padding">
+            	<div class="subpage-breadcrumbs">
+            		<a href="<?php echo https_url($this->lang->lang().'/recruiter/export_calendar'); ?>" target="_blank">Export as CSV</a>
+            	</div>
             </div>
         </div>
     </div>
-</div>
+    <div class="page-content container">
+        <div class="row candidate-attribute">
+            <div class="col-md-12 ">
+                <?php echo $calendar; ?>
+            </div>
+        </div> <!-- end row -->
+    </div>
+    <div class="clearfix"></div>
+</div> <!-- end site-content -->

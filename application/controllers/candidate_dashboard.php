@@ -68,7 +68,7 @@ class Candidate_dashboard extends CI_Controller {
 	        
 	        $this->db->insert('candidate_skills', $data);
 	        if($this->db->trans_status() == '1') {
-	            echo "success;Skill was added successfully, this window will close and refresh in 2 secs";            
+	            echo "success;Skill was added successfully, you will be redirected shortly";            
 	        } else {
 	            echo "failure;Something went wrong, please try again";
 	        }
@@ -87,7 +87,7 @@ class Candidate_dashboard extends CI_Controller {
 	        $data = array('candidate_ref_id'=> $this->input->post('candidateRefId'),'candidate_skill_ref_id' => $this->input->post('skilldelvalue') );
 	        $this->db->delete('candidate_skills', $data);
 	        if($this->db->trans_status() == '1') {
-	            echo "success;Skill was deleted successfully, this window will close and refresh in 2 secs";            
+	            echo "success;Skill was deleted successfully";            
 	        } else {
 	            echo "failure;Something went wrong, please try again";
 	        }
@@ -102,25 +102,20 @@ class Candidate_dashboard extends CI_Controller {
     // Add Candidate References
     public function add_candidate_ref() {
         
-        $session_email = array('email' => $this->input->post('candidateemail'));
-        //$candRefId = $this->login_database->fetch_cand_refId($session_email);
-        //$coderefId = $candRefId.'-'.substr(number_format(time() * rand(),0,'',''),0,6);
-        $coderefId = $this->login_database->fetch_cand_refId($session_email);
-        $candRefId = uniqid(date('dy').'_');
+        $candid_refId = array('candidate_refId' => $this->input->post('candidateRefId'));
+        $coderefId = $this->login_database->fetch_cand_coderefId($candid_refId);
         
         // To initially check if the email is registered in the system.
-        $condition = "candidate_email =" . "'" . $this->input->post('candidateemail') . "'";
-        $data = array('candidate_ref_id' => $candRefId, 'candidate_coderefs_id' => $coderefId, 'candidate_ref_name' => $this->input->post('candRef-Name'), 'candidate_ref_company' => $this->input->post('candRef-Company'),'candidate_ref_email' => $this->input->post('candRef-Email'),'candidate_ref_contact' => $this->input->post('candRef-Contact'));
-        $this->db->where('candidate_email', $this->input->post('candidateemail'));
+        $data = array('candidate_ref_id' => $this->input->post('candidateRefId'), 'candidate_coderefs_id' => $coderefId, 'candidate_ref_name' => $this->input->post('candRefName'), 'candidate_ref_company' => $this->input->post('candRefCompany'),'candidate_ref_email' => $this->input->post('candRefEmail'),'candidate_ref_contact' => $this->input->post('candRefContact'));
         $this->db->insert('candidate_references', $data);
         if($this->db->trans_status() == '1') {
             $sess_array = array('username' => $this->session->userdata('logged_in'));
             $this->session->unset_userdata('user_data');
             $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
             $this->session->set_userdata('user_data', $candidateinfo);
-            echo "success";
+            echo "success;Candidate Reference was added successfully, you will be redirected shortly";
         } else {
-            echo "failure";            
+            echo "failure;Candidate Reference was not added. Something went wrong, please try again";            
         }
     }
     
@@ -128,10 +123,8 @@ class Candidate_dashboard extends CI_Controller {
     public function fetch_candidate_ref() {
         
         // Query to check whether username already exist or not
-        $condition = "candidate_coderefs_id =" . "'" . $this->input->post('candidatecodrefsId') . "'";
-        $this->db->select('*');
-        $this->db->from('candidate_references');
-        $this->db->where($condition);
+        $condition = "Id =" . "'" . $this->input->post('candidaterefsId') . "'";
+        $this->db->select('*')->from('candidate_references')->where($condition);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             $dataArr = array();
@@ -153,21 +146,21 @@ class Candidate_dashboard extends CI_Controller {
         
         // To initially check if the email is registered in the system.
         $data = array(
-                    'candidate_ref_name' => $this->input->post('candRef-Name'), 
-                    'candidate_ref_company' => $this->input->post('candRef-Company'),
-                    'candidate_ref_email' => $this->input->post('candRef-Email'),
-                    'candidate_ref_contact' => $this->input->post('candRef-Contact')
+                    'candidate_ref_name' => $this->input->post('candRefName'), 
+                    'candidate_ref_company' => $this->input->post('candRefCompany'),
+                    'candidate_ref_email' => $this->input->post('candRefEmail'),
+                    'candidate_ref_contact' => $this->input->post('candRefContact')
                     );
-        $this->db->where('candidate_coderefs_id', $this->input->post('candidateRefCode'));
+        $this->db->where('Id', $this->input->post('candidateRefCode'));
         $this->db->update('candidate_references', $data);
         if($this->db->trans_status() == '1') {            
             $sess_array = array('username' => $this->session->userdata('logged_in'));
             $this->session->unset_userdata('user_data');
             $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
             $this->session->set_userdata('user_data', $candidateinfo);
-            echo "success";
+            echo "success;Candidate Reference was updated successfully, you will be redirected shortly";
         } else {
-            echo "failure";            
+            echo "failure;Candidate Reference was not updated. Something went wrong, please try again";            
         }
     }
     
@@ -176,32 +169,134 @@ class Candidate_dashboard extends CI_Controller {
         $CandRefdata = array(
             'candidate_coderefs_id' => $this->input->post('candidate_coderefs_id'),
         );
+        $this->db->where('Id', $this->input->post('refId'));
         $this->db->delete('candidate_references', $CandRefdata);
         if($this->db->trans_status() == '1') {            
             $sess_array = array('username' => $this->session->userdata('logged_in'));
             $this->session->unset_userdata('user_data');
             $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
             $this->session->set_userdata('user_data', $candidateinfo);
-            echo "success";
+            echo "success;Candidate Reference was deleted successfully";
         } else {
-            echo "failure";            
+            echo "failure;Candidate Reference was not deleted. Something went wrong, please try again";            
         }
     }
     
     // *********************************** Candidate References Section - End ***********************************
     
+    // *********************************** Academic Details Section - Start ***********************************    
+    // Add Candidate References
+    public function add_academic_details() {
+        
+        $candid_refId = array('candidate_refId' => $this->input->post('candidateRefId'));
+        $coderefId = $this->login_database->fetch_cand_coderefId($candid_refId);
+        
+        $query = $this->db->select('candidate_email')->where('candidate_ref_id', $this->input->post('candidateRefId') )->get('candidate_signup');
+        foreach ($query->result_array() as $row) { $candEmail = $row['candidate_email']; }
+        
+        // To initially check if the email is registered in the system.
+        $data = array(
+                    'candidate_ref_id' => $this->input->post('candidateRefId'),
+                    'candidate_coderefs_id' => $coderefId,
+                    'candidate_email' => $candEmail,  
+                    'candidate_univ_name' => $this->input->post('CandUnivname'), 
+                    'candidate_degree' => $this->input->post('CandDegree'),
+                    'candidate_field_of_study' => $this->input->post('CandFieldofStdy'),
+                    'candidate_edu_startDt' => $this->input->post('CandAcadStartDt'),
+                    'candidate_edu_endDt' => $this->input->post('CandAcadEndDt')
+                    );
+        $this->db->insert('candidate_education', $data);
+        if($this->db->trans_status() == '1') {            
+            $sess_array = array('username' => $this->session->userdata('logged_in'));
+            $this->session->unset_userdata('user_data');
+            $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
+            $this->session->set_userdata('user_data', $candidateinfo);
+            echo "success;Candidate Academic Details was added successfully, you will be redirected shortly";
+        } else {
+            echo "failure;Candidate Academic Details was not added. Something went wrong, please try again";
+        }
+    }
+    
+    // Fetch Candidate Academic Details from DB
+    public function fetch_academic_details() {
+        
+        // Query to check whether username already exist or not
+        $this->db->select('*')->from('candidate_education')->where('candidate_coderefs_id', $this->input->post('candidatecodrefsId') )->where('Id', $this->input->post('candidaterefsId') );
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            $dataArr = array();
+            foreach ($query->result() as $row) {
+               $dataArr = array('candidate_univ_name' => $row->candidate_univ_name,
+                            'candidate_degree' => $row->candidate_degree,
+                            'candidate_field_of_study' => $row->candidate_field_of_study,
+                            'candidate_edu_startDt' => $row->candidate_edu_startDt,
+                            'candidate_edu_endDt' => $row->candidate_edu_endDt
+                            );
+            }
+            print_r( json_encode($dataArr) );
+        } else {
+            return false;
+        }        
+    }
+    
+    // Update Candidate Academic Details
+    public function edit_academic_details() {
+
+        // To initially check if the email is registered in the system.
+        $data = array(
+                    'candidate_univ_name' => $this->input->post('CandUnivname'), 
+                    'candidate_degree' => $this->input->post('CandDegree'),
+                    'candidate_field_of_study' => $this->input->post('CandFieldofStdy'),
+                    'candidate_edu_startDt' => $this->input->post('CandAcadStartDt'),
+                    'candidate_edu_endDt' => $this->input->post('CandAcadEndDt')
+                    );
+        $this->db->where('Id', $this->input->post('candidateRefCode'));
+        $this->db->where('candidate_coderefs_id', $this->input->post('candidateRefId'));
+        $this->db->update('candidate_education', $data);
+        if($this->db->trans_status() == '1') {            
+            $sess_array = array('username' => $this->session->userdata('logged_in'));
+            $this->session->unset_userdata('user_data');
+            $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
+            $this->session->set_userdata('user_data', $candidateinfo);
+            echo "success;Candidate Academic Details was updated successfully, you will be redirected shortly";
+        } else {
+            echo "failure;Candidate Academic Details was not updated. Something went wrong, please try again";
+        }
+    }
+    
+    // Delete Candidate Academic Details
+    public function delete_academic_details() {        
+        $CandAcadRefdata = array(
+            'candidate_coderefs_id' => $this->input->post('candidatecodrefsId'),
+        );
+        $this->db->where('Id', $this->input->post('refId'));
+        $this->db->delete('candidate_education', $CandAcadRefdata);
+        if($this->db->trans_status() == '1') {            
+            $sess_array = array('username' => $this->session->userdata('logged_in'));
+            $this->session->unset_userdata('user_data');
+            $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
+            $this->session->set_userdata('user_data', $candidateinfo);
+            echo "success;Candidate Academic Details was deleted successfully";
+        } else {
+            echo "failure;Candidate Academic Details was not deleted. Something went wrong, please try again";
+        }
+    }
+    // *********************************** Academic Details Section - End ***************************************
+    
     // *********************************** Work Experience Section - Start ***********************************
     // Validate and Add Candidate Work Experience data into DB
     public function add_Workexp() {
         
-        $session_email = array('email' => $this->input->post('candidateemail'));
-        $candRefId = $this->login_database->fetch_cand_refId($session_email);
-        $coderefId = $candRefId.'-'.substr(number_format(time() * rand(),0,'',''),0,6);
+        $candid_refId = array('candidate_refId' => $this->input->post('candidateRefId'));
+        $coderefId = $this->login_database->fetch_cand_coderefId($candid_refId);
+        
+        $query = $this->db->select('candidate_email')->where('candidate_ref_id', $this->input->post('candidateRefId') )->get('candidate_signup');
+        foreach ($query->result_array() as $row) { $candEmail = $row['candidate_email']; }
         
         $WorkExpdata = array(
-            'candidate_ref_id' => $candRefId,
+            'candidate_ref_id' => $this->input->post('candidateRefId'),
             'candidate_coderefs_id' => $coderefId,
-            'candidate_email' => $this->input->post('candidateemail'),
+            'candidate_email' => $candEmail,
             'candidate_emp_name' => $this->input->post('employername'),
             'candidate_curr_designation' => $this->input->post('employerdesig'),
             'candidate_salary' => $this->input->post('employersal'),
@@ -216,9 +311,9 @@ class Candidate_dashboard extends CI_Controller {
             $this->session->unset_userdata('user_data');
             $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
             $this->session->set_userdata('user_data', $candidateinfo);
-            echo "success";
+            echo "success;Candidate Work Experience was added successfully, you will be redirected shortly";
         } else {
-            echo "failure";            
+            echo "failure;Candidate Work Experience was not added. Something went wrong, please try again";            
         }
     }
     
@@ -226,11 +321,8 @@ class Candidate_dashboard extends CI_Controller {
     public function fetch_work_exp() {
         
         // Query to check whether username already exist or not
-        $condition = "candidate_coderefs_id =" . "'" . $this->input->post('candidatecodrefsId') . "'";
-        $this->db->select('*');
-        $this->db->from('candidate_employment');
-        $this->db->where($condition);
-        $this->db->limit(1);
+        $condition = "Id =" . "'" . $this->input->post('candidaterefsId') . "'";
+        $this->db->select('*')->from('candidate_employment')->where($condition);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             $dataArr = array();
@@ -265,16 +357,16 @@ class Candidate_dashboard extends CI_Controller {
             'candidate_emp_endDt' => $this->input->post('employerEndDt')
         );
         
-        $this->db->where('candidate_coderefs_id', $this->input->post('candidateRefCode'));
+        $this->db->where('Id', $this->input->post('candidateRefCode'));
         $this->db->update('candidate_employment', $WorkExpUpddata);
         if($this->db->trans_status() == '1') {            
             $sess_array = array('username' => $this->session->userdata('logged_in'));
             $this->session->unset_userdata('user_data');
             $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
             $this->session->set_userdata('user_data', $candidateinfo);
-            echo "success";
+            echo "success;Candidate Work Experience was updated successfully, you will be redirected shortly";
         } else {
-            echo "failure";            
+            echo "failure;Candidate Work Experience was not updated. Something went wrong, please try again";            
         }
     }
     
@@ -284,117 +376,21 @@ class Candidate_dashboard extends CI_Controller {
             'candidate_email' => $this->input->post('candidateemail'),
             'candidate_coderefs_id' => $this->input->post('candidatecodrefsId'),
         );
+        $this->db->where('Id', $this->input->post('refId'));
         $this->db->delete('candidate_employment', $WorkExpdata);
         if($this->db->trans_status() == '1') {            
             $sess_array = array('username' => $this->session->userdata('logged_in'));
             $this->session->unset_userdata('user_data');
             $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
             $this->session->set_userdata('user_data', $candidateinfo);
-            echo "success";
+            echo "success;Candidate Work Experience was deleted successfully";
         } else {
-            echo "failure";            
+            echo "failure;Candidate Work Experience was not deleted. Something went wrong, please try again";
         }
     }
     
     // *********************************** Work Experience Section - End ***********************************
     
-    // *********************************** Academic Details Section - Start ***********************************    
-    // Add Candidate References
-    public function add_academic_details() {
-        
-        $session_email = array('email' => $this->input->post('candidateemail'));
-        $candRefId = $this->login_database->fetch_cand_refId($session_email);
-        $coderefId = $candRefId.'-'.substr(number_format(time() * rand(),0,'',''),0,6);
-        
-        // To initially check if the email is registered in the system.
-        $data = array(
-                    'candidate_ref_id' => $candRefId,
-                    'candidate_coderefs_id' => $coderefId,
-                    'candidate_email' => $this->input->post('candidateemail'),  
-                    'candidate_univ_name' => $this->input->post('CandUnivname'), 
-                    'candidate_degree' => $this->input->post('CandDegree'),
-                    'candidate_field_of_study' => $this->input->post('CandFieldofStdy'),
-                    'candidate_edu_startDt' => $this->input->post('CandAcadStartDt'),
-                    'candidate_edu_endDt' => $this->input->post('CandAcadEndDt')
-                    );
-        $this->db->insert('candidate_education', $data);
-        if($this->db->trans_status() == '1') {            
-            $sess_array = array('username' => $this->session->userdata('logged_in'));
-            $this->session->unset_userdata('user_data');
-            $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
-            $this->session->set_userdata('user_data', $candidateinfo);
-            echo "success";
-        } else {
-            echo "failure";            
-        }
-    }
-    
-    // Fetch Candidate Academic Details from DB
-    public function fetch_academic_details() {
-        
-        // Query to check whether username already exist or not
-        $condition = "candidate_coderefs_id =" . "'" . $this->input->post('candidatecodrefsId') . "'";
-        $this->db->select('*');
-        $this->db->from('candidate_education');
-        $this->db->where($condition);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            $dataArr = array();
-            foreach ($query->result() as $row) {
-               $dataArr = array('candidate_univ_name' => $row->candidate_univ_name,
-                            'candidate_degree' => $row->candidate_degree,
-                            'candidate_field_of_study' => $row->candidate_field_of_study,
-                            'candidate_edu_startDt' => $row->candidate_edu_startDt,
-                            'candidate_edu_endDt' => $row->candidate_edu_endDt
-                            );
-            }
-            print_r( json_encode($dataArr) );
-        } else {
-            return false;
-        }        
-    }
-    
-    // Update Candidate Academic Details
-    public function edit_academic_details() {
-
-        // To initially check if the email is registered in the system.
-        $data = array(
-                    'candidate_univ_name' => $this->input->post('CandUnivname'), 
-                    'candidate_degree' => $this->input->post('CandDegree'),
-                    'candidate_field_of_study' => $this->input->post('CandFieldofStdy'),
-                    'candidate_edu_startDt' => $this->input->post('CandAcadStartDt'),
-                    'candidate_edu_endDt' => $this->input->post('CandAcadEndDt')
-                    );
-        $this->db->where('candidate_coderefs_id', $this->input->post('candidateRefCode'));
-        $this->db->update('candidate_education', $data);
-        if($this->db->trans_status() == '1') {            
-            $sess_array = array('username' => $this->session->userdata('logged_in'));
-            $this->session->unset_userdata('user_data');
-            $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
-            $this->session->set_userdata('user_data', $candidateinfo);
-            echo "success";
-        } else {
-            echo "failure";            
-        }
-    }
-    
-    // Delete Candidate Academic Details
-    public function delete_academic_details() {        
-        $CandRefdata = array(
-            'candidate_coderefs_id' => $this->input->post('candidatecodrefsId'),
-        );
-        $this->db->delete('candidate_education', $CandRefdata);
-        if($this->db->trans_status() == '1') {            
-            $sess_array = array('username' => $this->session->userdata('logged_in'));
-            $this->session->unset_userdata('user_data');
-            $candidateinfo = $this->login_database->read_user_information($sess_array,'candidate');
-            $this->session->set_userdata('user_data', $candidateinfo);
-            echo "success";
-        } else {
-            echo "failure";            
-        }
-    }
-    // *********************************** Academic Details Section - End ***************************************
 }
 
 /* End of file welcome.php */
