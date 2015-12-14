@@ -56,5 +56,10 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+define('GT_MAIL_FROM', 'do-not-reply@grab-talent.net');
+define('GT_CONTACT_PRIVACY', 'contact.privacy@grab-talent.net');
+define('GT_PRIVACY_POLICY', 'http://www.grab-talent.com/PrivacyPolicy');
+define('GT_SALES', 'sales@grab-talent.com');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
